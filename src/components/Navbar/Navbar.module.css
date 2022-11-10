@@ -1,12 +1,17 @@
 .nav {
     grid-area: n;
-    background-color: antiquewhite;
+    background-color: #885eaf;
+    text-align: center;
 }
 
 .item {
-    color: white;
+    color: black;
+    background-color: #BDF903;
+    margin: 30px;
+    padding: 6px 10px;
 }
 
 .item.active {
-    color: gold;
+    color: white;
+    background-color: #FFC903;
 }

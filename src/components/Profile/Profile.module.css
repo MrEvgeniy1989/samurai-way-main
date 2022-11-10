@@ -1,8 +1,9 @@
 .content {
     grid-area: c;
-    background-color: aquamarine;
+    background-color: antiquewhite;
 }
 
 .content img {
     width: 100%;
+    height: 300px;
 }
