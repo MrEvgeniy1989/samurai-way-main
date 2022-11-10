@@ -1,5 +1,7 @@
 .app-wrapper {
     display: grid;
+    width: 1200px;
+    margin: 0 auto;
     grid-template-areas:
         "h h"
         "n c";
@@ -25,4 +27,8 @@
 .content {
     grid-area: c;
     background-color: aquamarine;
+}
+
+.content img {
+    width: 100%;
 }
