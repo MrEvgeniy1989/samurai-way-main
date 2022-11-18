@@ -1,9 +1,4 @@
-.content {
-    grid-area: c;
-    background-color: antiquewhite;
-}
-
-.content img {
+.profile img {
     width: 100%;
     height: 300px;
 }
