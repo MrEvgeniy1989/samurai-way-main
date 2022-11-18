@@ -2,16 +2,21 @@
     grid-area: n;
     background-color: #885eaf;
     text-align: center;
+    padding: 20px;
 }
 
 .item {
-    color: black;
     background-color: #BDF903;
     margin: 30px;
     padding: 6px 10px;
 }
 
-.item.active {
+.item a {
+    color: black;
+    text-decoration: none;
+}
+
+.item a.activeLink {
     color: white;
     background-color: #FFC903;
 }
