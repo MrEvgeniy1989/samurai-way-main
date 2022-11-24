@@ -1,29 +1,31 @@
-export type postDataType = {
+export type PostDataType = {
     id: number
     message: string
     likesCount: number
 }
-export type dialogsDataType = {
+export type DialogsDataType = {
     id: number
     name: string
 }
-export type messagesDataType = {
+export type MessagesDataType = {
     id: number
     message: string
 }
-export type profilePageType = {
-    posts: postDataType[]
+export type ProfilePageType = {
+    posts: PostDataType[]
 }
-export type dialogsPageType = {
-    dialogs: dialogsDataType[]
-    messages: messagesDataType[]
+export type DialogsPageType = {
+    dialogs: DialogsDataType[]
+    messages: MessagesDataType[]
 }
-export type stateType = {
-    profilePage: profilePageType
-    dialogsPage: dialogsPageType
+export type SidebarType = {}
+export type RootStateType = {
+    profilePage: ProfilePageType
+    dialogsPage: DialogsPageType
+    sidebar: SidebarType
 }
 
-export let state: stateType = {
+export let state: RootStateType = {
     profilePage: {
         posts: [
             {id: 1, message: 'Hi, how are you?', likesCount: 15},
@@ -48,4 +50,5 @@ export let state: stateType = {
             {id: 5, message: 'Yo',},
         ],
     },
+    sidebar: {}
 }
