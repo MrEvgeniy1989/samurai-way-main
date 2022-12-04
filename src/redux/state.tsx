@@ -53,3 +53,12 @@ export let state: RootStateType = {
     },
     sidebar: {}
 }
+
+export let addPost = (postMessage: string) => {
+    const newPost: PostDataType = {
+        id: 5,
+        message: postMessage,
+        likesCount: 0,
+    }
+    state.profilePage.posts.push(newPost)
+}
