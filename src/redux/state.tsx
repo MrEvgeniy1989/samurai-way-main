@@ -15,6 +15,7 @@ export type MessagesDataType = {
 }
 export type ProfilePageType = {
     posts: PostDataType[]
+    newPostText: string
 }
 export type DialogsPageType = {
     dialogs: DialogsDataType[]
@@ -34,6 +35,7 @@ export let state: RootStateType = {
             {id: 1, message: 'Hi, how are you?', likesCount: 15},
             {id: 2, message: 'It\'s my first post', likesCount: 20},
         ],
+        newPostText: 'it-kamasutra'
     },
     dialogsPage: {
         dialogs: [
@@ -56,12 +58,18 @@ export let state: RootStateType = {
     sidebar: {}
 }
 
-export let addPost = (postMessage: string) => {
+export const addPost = () => {
     const newPost: PostDataType = {
         id: 5,
-        message: postMessage,
+        message: state.profilePage.newPostText,
         likesCount: 0,
     }
     state.profilePage.posts.push(newPost)
+    state.profilePage.newPostText = ''
+    rerenderEntireTree(state)
+}
+
+export const updateNewPostText = (newText: string) => {
+    state.profilePage.newPostText = newText
     rerenderEntireTree(state)
 }

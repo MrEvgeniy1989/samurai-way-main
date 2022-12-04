@@ -5,7 +5,9 @@ import {PostDataType} from '../../../redux/state';
 
 type MyPostsPropsType = {
     posts: PostDataType[]
-    addPost: (postMessage: string) => void
+    addPost: () => void
+    newPostText: string
+    updateNewPostText: (newText: string) => void
 }
 
 export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
@@ -14,18 +16,22 @@ export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
     let newPostElement = React.createRef<HTMLTextAreaElement>();
 
     const addPost = () => {
-        if (newPostElement.current) {
-            const text = newPostElement.current?.value
-            props.addPost(text)
-        }
+            props.addPost()
     }
 
+    const onPostChange = () => {
+        if (newPostElement.current) {
+            const text = newPostElement.current?.value
+            props.updateNewPostText(text)
+        }
+    }
+    
     return (
         <div className={s.postsBlock}>
             <h3>My posts</h3>
             <div>
                 <div>
-                    <textarea ref={newPostElement}></textarea>
+                    <textarea onChange={onPostChange} ref={newPostElement} value={props.newPostText}/>
                 </div>
                 <div>
                     <button onClick={addPost}>Add post</button>
