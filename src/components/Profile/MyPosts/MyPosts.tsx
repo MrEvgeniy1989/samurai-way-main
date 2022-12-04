@@ -5,7 +5,7 @@ import {PostDataType} from '../../../redux/state';
 
 type MyPostsPropsType = {
     posts: PostDataType[]
-    addPost: (postMessage: string)=>void
+    addPost: (postMessage: string) => void
 }
 
 export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
