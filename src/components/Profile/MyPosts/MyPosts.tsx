@@ -15,7 +15,7 @@ export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
     let newPostElement = React.createRef<HTMLTextAreaElement>();
 
     const addPost = () => {
-        props.dispatch(addPostActionCreator(props.newPostText))
+        props.dispatch(addPostActionCreator())
     }
 
     const onPostChange = () => {
