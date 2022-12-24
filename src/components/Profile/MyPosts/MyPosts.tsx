@@ -6,8 +6,10 @@ import {addPostActionCreator, updateNewPostTextActionCreator} from '../../../red
 
 type MyPostsPropsType = {
     posts: PostDataType[]
+    addPost: () => void
+    updateNewPostText: (text: string) => void
     newPostText: string
-    dispatch: (action: ActionsType) => void
+    // dispatch: (action: ActionsType) => void
 }
 
 export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
@@ -15,14 +17,14 @@ export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
 
     let newPostElement = React.createRef<HTMLTextAreaElement>();
 
-    const addPost = () => {
-        props.dispatch(addPostActionCreator())
+    const onAddPost = () => {
+        props.addPost()
     }
 
     const onPostChange = () => {
         if (newPostElement.current) {
             const text = newPostElement.current?.value
-            props.dispatch(updateNewPostTextActionCreator(text))
+            props.updateNewPostText(text)
         }
     }
 
@@ -34,7 +36,7 @@ export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
                     <textarea onChange={onPostChange} ref={newPostElement} value={props.newPostText}/>
                 </div>
                 <div>
-                    <button onClick={addPost}>Add post</button>
+                    <button onClick={onAddPost}>Add post</button>
                 </div>
             </div>
             <div className={s.posts}>
