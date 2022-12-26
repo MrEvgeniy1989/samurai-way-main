@@ -1,18 +1,9 @@
 import React from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
-import {ActionsType, PostDataType} from '../../../redux/store';
-import {addPostActionCreator, updateNewPostTextActionCreator} from '../../../redux/profile-reducer';
+import {MyPostsPropsType} from './MyPostsContainer';
 
-type MyPostsPropsType = {
-    posts: PostDataType[]
-    addPost: () => void
-    updateNewPostText: (text: string) => void
-    newPostText: string
-    // dispatch: (action: ActionsType) => void
-}
-
-export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
+export const MyPosts = (props: MyPostsPropsType) => {
     let postsElements = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount}/>)
 
     let newPostElement = React.createRef<HTMLTextAreaElement>();
