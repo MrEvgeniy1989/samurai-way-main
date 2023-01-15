@@ -19,9 +19,9 @@ type MapDispatchToPropsType = {
     setCurrentPage: (pageNumber: number) => void
     setTotalUsersCount: (totalCount: number) => void
 }
-export type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType
+export type UsersContainerPropsType = MapStateToPropsType & MapDispatchToPropsType
 
-export class UsersContainer extends React.Component<any, any> {
+export class UsersContainer extends React.Component<UsersContainerPropsType, AppStateType> {
 
     componentDidMount() {
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
