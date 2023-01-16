@@ -1,4 +1,5 @@
-import {ActionsType} from './store';
+import {addPostActionCreator, setUserProfile, updateNewPostTextActionCreator} from './profile-reducer';
+
 
 type DialogsDataType = {
     id: number
@@ -13,6 +14,10 @@ export type InitialStateType = {
     messages: MessagesDataType[]
     newMessageText: string
 }
+
+type ActionsType =
+    ReturnType<typeof sendMessageCreator>
+    | ReturnType<typeof updateNewMessageTextActionCreator>
 
 const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE_NEW_MESSAGE_TEXT';
 const SEND_MESSAGE = 'SEND_MESSAGE';
