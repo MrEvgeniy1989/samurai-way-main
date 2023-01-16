@@ -2,19 +2,16 @@ import React from 'react';
 import s from './Profile.module.css';
 import {ProfileInfo} from './ProfileInfo/ProfileInfo';
 import {MyPostsContainer} from './MyPosts/MyPostsContainer';
+import {ProfileType} from '../../redux/profile-reducer';
 
 type ProfilePropsType = {
-    // store: any
-    // profilePage: ProfilePageType
-    // // addPost: () => void
-    // // updateNewPostText: (newText: string) => void
-    // dispatch: (action: ActionsType) => void
+    profile: ProfileType | null
 }
 
-export const Profile: React.FC<ProfilePropsType> = (props) => {
+export const Profile = (props: ProfilePropsType) => {
     return (
         <div className={s.profile}>
-            <ProfileInfo/>
+            <ProfileInfo profile={props.profile}/>
             <MyPostsContainer />
         </div>
 

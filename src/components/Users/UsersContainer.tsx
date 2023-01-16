@@ -1,11 +1,9 @@
 import {connect} from 'react-redux';
 import {AppStateType} from '../../redux/redux-store';
-import {Dispatch} from 'redux';
 import {follow, setCurrentPage, setTotalUsersCount, setUsers, toggleIsFetching, unfollow, UserType} from '../../redux/users-reducer';
 import React from 'react';
 import axios from 'axios';
 import {Users} from './Users';
-import preloader from '../../assets/images/preloader.svg';
 import {Preloader} from '../common/Preloader/Preloader';
 
 type MapStateToPropsType = {
