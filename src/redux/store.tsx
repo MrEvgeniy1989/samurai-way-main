@@ -1,6 +1,5 @@
 import {addPostActionCreator, updateNewPostTextActionCreator} from './profile-reducer';
-import {dialogsReducer, sendMessageCreator, updateNewMessageTextActionCreator} from './dialogs-reducer';
-import {sidebarReducer} from './sidebar-reducer';
+import {sendMessageCreator, updateNewMessageTextActionCreator} from './dialogs-reducer';
 
 type PostDataType = {
     id: number
@@ -44,7 +43,7 @@ type ActionsType =
     | ReturnType<typeof updateNewMessageTextActionCreator>
 
 
-export const store: StoreType = {
+const store: StoreType = {
     _state: {
         profilePage: {
             posts: [
