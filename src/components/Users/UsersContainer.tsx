@@ -51,7 +51,6 @@ export class UsersContainer extends React.Component<UsersContainerPropsType, App
     }
 }
 
-
 let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         users: state.usersPage.users,
