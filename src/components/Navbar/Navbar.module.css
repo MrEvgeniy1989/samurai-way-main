@@ -23,35 +23,46 @@
 /*}*/
 
 .nav {
-    grid-area: n;
-    background-color: #885eaf;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    min-width: 1fr;
-
+  /*flex-basis: 20%;*/
+  min-width: 20%;
+  background-color: #885eaf;
+  display: flex;
+  flex-direction: column;
+  gap: 20px 0;
+  align-items: center;
+  padding: 50px 0;
 }
 
 .item {
-    /*margin-top: 20px;*/
-    margin: 20px auto;
+  text-decoration: none;
+  background-color: #BDF903;
+  font-size: 17px;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
 }
 
 .item a {
-    float: left;
-    padding: 3% 10%;
-    color: black;
-    text-decoration: none;
-    background-color: #BDF903;
-    font-size: 17px;
-    width: 50%;
-    text-align: center;
-    margin: 8% 15%;
-    min-width: auto;
-    white-space: pre-wrap;
+  color: black;
+  text-decoration: none;
+  /*float: left;*/
+  /*padding: 3% 10%;*/
+  /*color: black;*/
+  /*text-decoration: none;*/
+  /*background-color: #BDF903;*/
+  /*font-size: 17px;*/
+  /*width: 50%;*/
+  /*text-align: center;*/
+  /*margin: 8% 15%;*/
+  /*min-width: auto;*/
+  /*white-space: pre-wrap;*/
 }
 
 .item a.activeLink {
-    color: white;
-    background-color: #391CBA;
+  color: white;
+  width: 100%;
+  text-align: center;
+  background-color: #391CBA;
 }
