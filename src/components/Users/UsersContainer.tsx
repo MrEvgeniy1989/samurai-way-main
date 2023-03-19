@@ -4,6 +4,7 @@ import {follow, getUsers, setCurrentPage, toggleFollowingProgress, unfollow, Use
 import React from 'react';
 import {Users} from './Users';
 import {Preloader} from '../common/Preloader/Preloader';
+import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 
 type MapStateToPropsType = {
     users: UserType[]
@@ -62,4 +63,4 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     }
 }
 
-export default connect(mapStateToProps, {follow, unfollow, setCurrentPage, toggleFollowingProgress, getUsers})(UsersContainer)
+export default withAuthRedirect(connect(mapStateToProps, {follow, unfollow, setCurrentPage, toggleFollowingProgress, getUsers})(UsersContainer))
