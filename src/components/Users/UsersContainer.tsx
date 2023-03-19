@@ -1,10 +1,13 @@
 import {connect} from 'react-redux';
 import {AppStateType} from '../../redux/redux-store';
 import {follow, getUsers, setCurrentPage, toggleFollowingProgress, unfollow, UserType} from '../../redux/users-reducer';
-import React from 'react';
+import React, {ComponentType} from 'react';
 import {Users} from './Users';
 import {Preloader} from '../common/Preloader/Preloader';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
+import {compose} from 'redux';
+import {getUserProfile} from '../../redux/profile-reducer';
+import {withRouter} from 'react-router-dom';
 
 type MapStateToPropsType = {
     users: UserType[]
@@ -63,4 +66,7 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     }
 }
 
-export default withAuthRedirect(connect(mapStateToProps, {follow, unfollow, setCurrentPage, toggleFollowingProgress, getUsers})(UsersContainer))
+export default compose<ComponentType>(
+  connect(mapStateToProps, {follow, unfollow, setCurrentPage, toggleFollowingProgress, getUsers}),
+  withAuthRedirect
+)(UsersContainer)
