@@ -24,7 +24,9 @@
 
 .nav {
   /*flex-basis: 20%;*/
-  min-width: 20%;
+  min-height: calc(100vh - 60px);
+  min-width: 170px;
+  width: 20%;
   background-color: #885eaf;
   display: flex;
   flex-direction: column;
