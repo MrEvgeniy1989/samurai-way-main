@@ -1,6 +1,3 @@
-import {addPostActionCreator, setUserProfile, updateNewPostTextActionCreator} from './profile-reducer';
-
-
 type DialogsDataType = {
     id: number
     name: string
@@ -12,14 +9,10 @@ type MessagesDataType = {
 export type InitialStateType = {
     dialogs: DialogsDataType[]
     messages: MessagesDataType[]
-    newMessageText: string
 }
 
-type ActionsType =
-    ReturnType<typeof sendMessageCreator>
-    | ReturnType<typeof updateNewMessageTextActionCreator>
+type ActionsType = ReturnType<typeof sendMessageCreator>
 
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE_NEW_MESSAGE_TEXT';
 const SEND_MESSAGE = 'SEND_MESSAGE';
 
 const initialState: InitialStateType = {
@@ -38,21 +31,17 @@ const initialState: InitialStateType = {
         {id: 3, message: 'Yo',},
         {id: 4, message: 'Yo',},
         {id: 5, message: 'Yo',},
-    ],
-    newMessageText: ''
+    ]
 }
 
 export const dialogsReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case UPDATE_NEW_MESSAGE_TEXT:
-            return  {...state, newMessageText: action.body}
         case SEND_MESSAGE:
-            let body = state.newMessageText
-            return {...state, newMessageText: '', messages: [...state.messages, {id: 6, message: body}]}
+            let body = action.newMessageBody
+            return {...state, messages: [...state.messages, {id: 6, message: body}]}
         default:
             return state
     }
 }
 
-export const sendMessageCreator = () => ({type: SEND_MESSAGE}) as const
-export const updateNewMessageTextActionCreator = (body: string) => ({type: UPDATE_NEW_MESSAGE_TEXT, body: body}) as const
+export const sendMessageCreator = (newMessageBody: string) => ({type: SEND_MESSAGE, newMessageBody}) as const

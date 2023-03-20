@@ -41,7 +41,7 @@ type LoginPropsType = {}
 export const Login: FC<LoginPropsType> = (props) => {
 
   const onSubmit = (formData: FormDataType) => {
-
+    console.log(formData)
   }
 
   return (
