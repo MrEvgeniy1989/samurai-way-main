@@ -1,4 +1,5 @@
 import {usersAPI} from '../api/api';
+import {ThunkDispatch} from 'redux-thunk';
 
 type LocationType = {
     city: string
@@ -85,10 +86,12 @@ export const setTotalUsersCount = (count: number) => ({type: SET_TOTAL_USERS_COU
 export const toggleIsFetching = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching}) as const
 export const toggleFollowingProgress = (isFetching: boolean, userId: number) => ({type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId}) as const
 
-export const getUsers = (currentPage: number, pageSize: number) => {
-    return (dispatch: any) => {
+export const requestUsers = (page: number, pageSize: number) => {
+    return (dispatch: ThunkDispatch<InitialStateType, any, ActionsType>) => {
         dispatch(toggleIsFetching(true))
-        usersAPI.getUsers(currentPage, pageSize).then(data => {
+        dispatch(setCurrentPage(page))
+
+        usersAPI.getUsers(page, pageSize).then(data => {
             dispatch(toggleIsFetching(false))
             dispatch(setUsers(data.items))
             dispatch(setTotalUsersCount(data.totalCount))
@@ -97,7 +100,7 @@ export const getUsers = (currentPage: number, pageSize: number) => {
 }
 
 export const follow = (userId: number) => {
-    return (dispatch: any) => {
+    return (dispatch: ThunkDispatch<InitialStateType, any, ActionsType>) => {
         dispatch(toggleFollowingProgress(true, userId))
         usersAPI.follow(userId).then(response => {
             if (response.data.resultCode === 0) {
@@ -109,7 +112,7 @@ export const follow = (userId: number) => {
 }
 
 export const unfollow = (userId: number) => {
-    return (dispatch: any) => {
+    return (dispatch: ThunkDispatch<InitialStateType, any, ActionsType>) => {
         dispatch(toggleFollowingProgress(true, userId))
         usersAPI.unfollow(userId).then(response => {
             if (response.data.resultCode === 0) {
