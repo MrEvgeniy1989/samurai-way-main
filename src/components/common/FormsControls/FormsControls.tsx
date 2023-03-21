@@ -13,7 +13,7 @@ type FormsControlsPropsType = {
 const FormControl: FC<FormsControlsPropsType> = ({input, meta, ...props}) => {
   const hasError = meta.touched && meta.error
   return (
-    <div className={`${style.formControl} (${hasError} ? ${style.error} : '')`}>
+     <div className={style.formControl + ' ' + (hasError ? style.error : '')}>
       <div>
         {props.children}
       </div>

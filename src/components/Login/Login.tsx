@@ -1,5 +1,6 @@
 import React, {FC} from 'react';
 import style from './Login.module.css'
+import styleFormControls from '../common/FormsControls/FormsControls.module.css'
 import {Field, InjectedFormProps, reduxForm} from 'redux-form';
 import {Input} from '../common/FormsControls/FormsControls';
 import {required} from '../../utils/validators/validators';
@@ -42,6 +43,8 @@ export const LoginForm: FC<InjectedFormProps<FormDataType> & LoginFormPropsType>
                type="checkbox"
         /> Remember me
       </div>
+
+      {props.error && <div className={styleFormControls.formSummaryError}>{props.error}</div>}
 
       <div>
         <button>Login</button>
