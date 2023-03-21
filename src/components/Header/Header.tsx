@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React from 'react';
 import s from './Header.module.css';
 import {NavLink} from 'react-router-dom';
 import {HeaderContainerPropsType} from './HeaderContainer';
@@ -14,7 +14,7 @@ export const Header: React.FC<HeaderPropsType> = (props) => {
 
             <div className={s.loginBlock}>
                 {props.isAuth
-                    ? props.login
+                    ? <div>{props.login} - <button onClick={props.logout}>Log out</button> </div>
                     : <NavLink to={'/login'}>Login</NavLink>
                 }
             </div>
