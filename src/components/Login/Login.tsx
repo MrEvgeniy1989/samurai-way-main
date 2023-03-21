@@ -1,6 +1,8 @@
 import React, {FC} from 'react';
 import style from './Login.module.css'
 import {Field, InjectedFormProps, reduxForm} from 'redux-form';
+import {Input} from '../common/FormsControls/FormsControls';
+import {required} from '../../utils/validators/validators';
 
 type LoginFormPropsType = {}
 
@@ -14,15 +16,26 @@ export const LoginForm: FC<InjectedFormProps<FormDataType> & LoginFormPropsType>
   return (
     <form onSubmit={props.handleSubmit}>
       <div>
-        <Field placeholder={'Login'} name={'login'} component={'input'}/>
+        <Field placeholder={'Login'}
+               name={'login'}
+               validate = {[required]}
+               component={Input}
+        />
       </div>
 
       <div>
-        <Field placeholder={'Password'} name={'password'} component={'input'}/>
+        <Field placeholder={'Password'}
+               name={'password'}
+               validate = {[required]}
+               component={Input}
+        />
       </div>
 
       <div>
-        <Field component={'input'} name={'rememberMe'} type="checkbox"/> Remember me
+        <Field component={Input}
+               name={'rememberMe'}
+               type="checkbox"
+        /> Remember me
       </div>
 
       <div>
