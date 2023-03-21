@@ -4,7 +4,7 @@ import {ThunkDispatch} from 'redux-thunk';
 import {FormAction, stopSubmit} from 'redux-form';
 
 type InitialStateType = {
-  id: number | null,
+  userId: number | null,
   email: string | null,
   login: string | null,
   isAuth: boolean
@@ -14,7 +14,7 @@ type ActionsType = ReturnType<typeof setAuthUserData> | FormAction
 const SET_USER_DATA = 'SET_USER_DATA';
 
 const initialState: InitialStateType = {
-  id: null,
+  userId: null,
   email: null,
   login: null,
   isAuth: false
@@ -35,10 +35,10 @@ export const setAuthUserData = (userId: number | null, email: string | null, log
 }) as const
 
 export const getAuthUserData = () => (dispatch: Dispatch<ActionsType>) => {
-  authAPI.me().then(response => {
+  return authAPI.me().then(response => {
     if (response.data.resultCode === 0) {
-      let {id, email, login} = response.data.data
-      dispatch(setAuthUserData(id, email, login, true))
+      let {userId, email, login} = response.data.data
+      dispatch(setAuthUserData(userId, email, login, true))
     }
   })
 }
