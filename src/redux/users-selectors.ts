@@ -1,14 +1,14 @@
 import {AppStateType} from './redux-store';
 import {UserType} from './users-reducer';
 
+export const getUsers = (state: AppStateType): UserType[] => {
+  return state.usersPage.users
+}
+
 //пример использования и типизации мемоизированного селектора (для сложных вычисляемых селекторов)
 // export const getUsersFilter  = createSelector<[Selector<stateType, UsersType[]>], UsersType[]>(getUsers, (users) => {
 //    return users.filter(elem => true)
 // });
-
-export const getUsers = (state: AppStateType): UserType[] => {
-  return state.usersPage.users
-}
 
 export const getPageSize = (state: AppStateType) => {
   return state.usersPage.pageSize
