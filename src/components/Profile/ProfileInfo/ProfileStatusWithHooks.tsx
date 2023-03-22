@@ -4,6 +4,7 @@ type ProfileStatusWithHooksPropsType = {
   status: string
   updateStatus: (status: string) => void
 }
+
 export const ProfileStatusWithHooks: FC<ProfileStatusWithHooksPropsType> = ({status, updateStatus}) => {
 
   const [editMode, setEditMode] = useState<boolean>(false)
