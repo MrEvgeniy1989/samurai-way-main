@@ -5,11 +5,19 @@
 .pageNumber {
     padding: 2px;
     border: 1px solid grey;
+    cursor: pointer;
+    background: #d6cbff;
+}
+
+.pageNumber:hover {
+    background: #aa80ff;
 }
 
 .pageNumber.selectedPage {
     font-weight: bold;
     border-color: black;
+    cursor: pointer;
+    background: #aa80ff;
 }
 
 /*
