@@ -38,8 +38,8 @@ export const getAuthUserData = () => async (dispatch: Dispatch<ActionsType>) => 
     let response = await authAPI.me()
 
     if (response.data.resultCode === 0) {
-        let {userId, email, login} = response.data.data
-        dispatch(setAuthUserData(userId, email, login, true))
+        let {id, email, login} = response.data.data
+        dispatch(setAuthUserData(id, email, login, true))
     }
 }
 

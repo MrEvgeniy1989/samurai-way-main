@@ -8,3 +8,12 @@
     display: flex;
     gap: 20px;
 }
+
+.mainPhoto {
+    min-width: 100px;
+    max-width: 200px;
+}
+
+.fileInput {
+
+}

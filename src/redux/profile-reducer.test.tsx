@@ -1,12 +1,12 @@
 import React from "react";
-import {addPostActionCreator, deletePost, InitialStateType, profileReducer} from "./profile-reducer";
+import {addPostActionCreator, deletePost, InitialStateType, profileReducer, ProfileType} from "./profile-reducer";
 
 const initialState: InitialStateType = {
     posts: [
         {id: 1, message: 'Hi, how are you?', likesCount: 15},
         {id: 2, message: 'It\'s my first post', likesCount: 20},
     ],
-    profile: null,
+    profile: {} as ProfileType,
     status: ''
 }
 

@@ -7,28 +7,29 @@ export type PostDataType = {
     likesCount: number
 }
 export type ProfileType = {
+    aboutMe: string
     userId: number
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
     contacts: {
-        github: string
-        vk: string
-        facebook: string
-        instagram: string
-        twitter: string
-        website: string
-        youtube: string
-        mainLink: string
+        github: string | null
+        vk: string | null
+        facebook: string | null
+        instagram: string | null
+        twitter: string | null
+        website: string | null
+        youtube: string | null
+        mainLink: string | null
     }
     photos: {
-        small: (string)
-        large: (string)
+        small: string
+        large: string
     }
 }
 export type InitialStateType = {
     posts: PostDataType[]
-    profile: ProfileType | null
+    profile: ProfileType
     status: string
 }
 
@@ -37,18 +38,20 @@ type ActionsType =
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setStatus>
     | ReturnType<typeof deletePost>
+    | ReturnType<typeof savePhotoSuccess>
 
 const ADD_POST = 'ADD-POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
 const DELETE_POST = 'DELETE_POST';
+const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS';
 
 const initialState: InitialStateType = {
     posts: [
         {id: 1, message: 'Hi, how are you?', likesCount: 15},
         {id: 2, message: 'It\'s my first post', likesCount: 20},
     ],
-    profile: null,
+    profile: {} as ProfileType,
     status: ''
 }
 
@@ -67,15 +70,22 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
         case DELETE_POST: {
             return {...state, posts: state.posts.filter(p => p.id !== action.postId)}
         }
+        case SAVE_PHOTO_SUCCESS: {
+            return {...state, profile: {...state.profile, photos: action.photos}}
+        }
         default:
             return state
     }
 }
 
 export const addPostActionCreator = (newPostText: string) => ({type: ADD_POST, newPostText}) as const
-export const setUserProfile = (profile: ProfileType | null) => ({type: SET_USER_PROFILE, profile}) as const
+export const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile}) as const
 export const setStatus = (status: string) => ({type: SET_STATUS, status}) as const
 export const deletePost = (postId: number) => ({type: DELETE_POST, postId}) as const
+export const savePhotoSuccess = (photos: { small: string; large: string }) => ({
+    type: 'SAVE_PHOTO_SUCCESS',
+    photos
+}) as const
 
 export const getUserProfile = (userId: number) => async (dispatch: Dispatch) => {
     const response = await profileAPI.getProfile(userId)
@@ -94,3 +104,11 @@ export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
         dispatch(setStatus(status))
     }
 }
+export const savePhoto = (file: File) => async (dispatch: Dispatch) => {
+    const response = await profileAPI.savePhoto(file)
+
+    if (response.data.resultCode === 0) {
+        dispatch(savePhotoSuccess(response.data.data.photos))
+    }
+}
+
