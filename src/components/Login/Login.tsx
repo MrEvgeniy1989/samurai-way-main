@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import style from './Login.module.css'
 import styleFormControls from '../common/FormsControls/FormsControls.module.css'
-import {Field, InjectedFormProps, reduxForm} from 'redux-form';
+import {InjectedFormProps, reduxForm} from 'redux-form';
 import {createField, Input} from '../common/FormsControls/FormsControls';
 import {required} from '../../utils/validators/validators';
 import {connect} from 'react-redux';
@@ -23,13 +23,6 @@ export const LoginForm: FC<InjectedFormProps<FormDataType> & LoginFormPropsType>
             {createField('Email', 'email', [required], Input)}
             {createField('Password', 'password', [required], Input, {type: 'password'})}
             {createField(null, 'rememberMe', [], Input, {type: 'checkbox'}, 'Remember me')}
-
-            <div>
-                <Field component={Input}
-                       name={'rememberMe'}
-                       type="checkbox"
-                /> Remember me
-            </div>
 
             {error && <div className={styleFormControls.formSummaryError}>{error}</div>}
 

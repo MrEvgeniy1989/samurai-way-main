@@ -1,5 +1,7 @@
 import {profileAPI} from '../api/api';
 import {Dispatch} from 'redux';
+import {AppStateType, AppThunk} from "./redux-store";
+import {stopSubmit} from "redux-form";
 
 export type PostDataType = {
     id: number
@@ -13,6 +15,7 @@ export type ProfileType = {
     lookingForAJobDescription: string
     fullName: string
     contacts: {
+        [key: string]: string | null
         github: string | null
         vk: string | null
         facebook: string | null
@@ -111,4 +114,16 @@ export const savePhoto = (file: File) => async (dispatch: Dispatch) => {
         dispatch(savePhotoSuccess(response.data.data.photos))
     }
 }
+export const saveProfile = (profile: ProfileType): AppThunk => async (dispatch, getState: () => AppStateType) => {
+    const userId = getState().auth.userId
+    const response = await profileAPI.saveProfile(profile)
 
+    if (response.data.resultCode === 0) {
+        if (userId) {
+            await dispatch(getUserProfile(userId))
+        }
+    } else {
+        dispatch(stopSubmit('edit-profile', {_error: response.data.messages[0]}))
+        return Promise.reject(response.data.messages[0])
+    }
+}
