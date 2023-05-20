@@ -101,10 +101,14 @@ export const getStatus = (userId: number) => async (dispatch: Dispatch) => {
     dispatch(setStatus(response.data))
 }
 export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
-    const response = await profileAPI.updateStatus(status)
+    try {
+        const response = await profileAPI.updateStatus(status)
 
-    if (response.data.resultCode === 0) {
-        dispatch(setStatus(status))
+        if (response.data.resultCode === 0) {
+            dispatch(setStatus(status))
+        }
+    } catch (error) {
+          console.log(error)
     }
 }
 export const savePhoto = (file: File) => async (dispatch: Dispatch) => {

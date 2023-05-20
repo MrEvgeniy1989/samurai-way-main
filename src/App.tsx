@@ -1,7 +1,7 @@
 import React, {ComponentType} from 'react';
 import './App.css';
 import {Navbar} from './components/Navbar/Navbar';
-import {HashRouter, Route, withRouter} from 'react-router-dom';
+import {HashRouter, Redirect, Route, Switch, withRouter} from 'react-router-dom';
 import HeaderContainer from './components/Header/HeaderContainer';
 import {connect, Provider} from 'react-redux';
 import {AppStateType, store} from './redux/redux-store';
@@ -29,9 +29,17 @@ type AppPropsType = MapStateToPropsType & MapDispatchToPropsType
 
 
 class App extends React.Component<AppPropsType, AppStateType> {
+    catchAllUnhandledErrors = (reason?: any, promise?: Promise<any>) => {
+        alert('Some error occured, please try again later')
+    }
 
     componentDidMount() {
         this.props.initializeApp()
+        window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors)
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors)
     }
 
     render() {
@@ -44,27 +52,32 @@ class App extends React.Component<AppPropsType, AppStateType> {
                 <div className={'appContainer'}>
                     <Navbar/>
                     <div className="app-wrapper-content">
-                        <Route path="/profile/:userId?" render={() => {
-                            return <React.Suspense fallback={<Preloader/>}><ProfileContainer/></React.Suspense>
-                        }}/>
-                        <Route path="/dialogs" render={() => {
-                            return <React.Suspense fallback={<Preloader/>}><DialogsContainer/></React.Suspense>
-                        }}/>
-                        <Route path="/users" render={() => {
-                            return <React.Suspense fallback={<Preloader/>}><UsersContainer/></React.Suspense>
-                        }}/>
-                        <Route path="/news" render={() => {
-                            return <React.Suspense fallback={<Preloader/>}><News/></React.Suspense>
-                        }}/>
-                        <Route path="/music" render={() => {
-                            return <React.Suspense fallback={<Preloader/>}><Music/></React.Suspense>
-                        }}/>
-                        <Route path="/settings" render={() => {
-                            return <React.Suspense fallback={<Preloader/>}><Settings/></React.Suspense>
-                        }}/>
-                        <Route path="/login" render={() => {
-                            return <React.Suspense fallback={<Preloader/>}><Login/></React.Suspense>
-                        }}/>
+                        <Switch>
+                            <Route exact path="/" render={() => <Redirect to={'/profile'}/>}/>
+                            <Route path="/profile/:userId?" render={() => {
+                                return <React.Suspense fallback={<Preloader/>}><ProfileContainer/></React.Suspense>
+                            }}/>
+                            <Route path="/dialogs" render={() => {
+                                return <React.Suspense fallback={<Preloader/>}><DialogsContainer/></React.Suspense>
+                            }}/>
+                            <Route path="/users" render={() => {
+                                return <React.Suspense fallback={<Preloader/>}><UsersContainer/></React.Suspense>
+                            }}/>
+                            <Route path="/news" render={() => {
+                                return <React.Suspense fallback={<Preloader/>}><News/></React.Suspense>
+                            }}/>
+                            <Route path="/music" render={() => {
+                                return <React.Suspense fallback={<Preloader/>}><Music/></React.Suspense>
+                            }}/>
+                            <Route path="/settings" render={() => {
+                                return <React.Suspense fallback={<Preloader/>}><Settings/></React.Suspense>
+                            }}/>
+                            <Route path="/login" render={() => {
+                                return <React.Suspense fallback={<Preloader/>}><Login/></React.Suspense>
+                            }}/>
+                            <Route path="*"
+                                   render={() => <div>404 NOT FOUND</div>}/>
+                        </Switch>
                     </div>
                 </div>
             </div>
