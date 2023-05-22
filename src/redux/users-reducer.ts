@@ -20,7 +20,7 @@ import {UserType} from "../types/types";
 
 export type InitialStateType = typeof initialState
 type ActionsType =
-    ReturnType<typeof followSuccess>
+    | ReturnType<typeof followSuccess>
     | ReturnType<typeof unfollowSuccess>
     | ReturnType<typeof setUsers>
     | ReturnType<typeof setCurrentPage>
@@ -105,7 +105,10 @@ export const requestUsers = (page: number, pageSize: number) => {
         dispatch(setTotalUsersCount(data.totalCount))
     }
 }
-export const followUnfollowFlow = async (dispatch: ThunkDispatch<InitialStateType, any, ActionsType>, userId: number, apiMethod: any, actionCreator: any) => {
+export const _followUnfollowFlow = async (dispatch: ThunkDispatch<InitialStateType, unknown, ActionsType>,
+                                          userId: number,
+                                          apiMethod: any,
+                                          actionCreator: (userId: number) => ReturnType<typeof followSuccess> | ReturnType<typeof unfollowSuccess>) => {
     dispatch(toggleFollowingProgress(true, userId))
 
     const response = await apiMethod(userId)
@@ -117,11 +120,11 @@ export const followUnfollowFlow = async (dispatch: ThunkDispatch<InitialStateTyp
 }
 export const follow = (userId: number) => {
     return async (dispatch: ThunkDispatch<InitialStateType, any, ActionsType>) => {
-        followUnfollowFlow(dispatch, userId, usersAPI.follow.bind(usersAPI), followSuccess)
+        _followUnfollowFlow(dispatch, userId, usersAPI.follow.bind(usersAPI), followSuccess)
     }
 }
 export const unfollow = (userId: number) => {
     return async (dispatch: ThunkDispatch<InitialStateType, any, ActionsType>) => {
-        followUnfollowFlow(dispatch, userId, usersAPI.unfollow.bind(usersAPI), unfollowSuccess)
+        _followUnfollowFlow(dispatch, userId, usersAPI.unfollow.bind(usersAPI), unfollowSuccess)
     }
 }
