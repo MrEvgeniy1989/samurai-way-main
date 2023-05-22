@@ -3,7 +3,7 @@ import {Paginator} from "../common/Paginator/Paginator";
 import {User} from "./User";
 import {UserType} from "../../types/types";
 
-export type UsersPropsType = {
+type PropsType = {
     totalUsersCount: number
     pageSize: number
     currentPage: number
@@ -11,11 +11,11 @@ export type UsersPropsType = {
     users: UserType[]
     toggleFollowingProgress: (isFetching: boolean, userId: number) => void
     followingInProgress: number[]
-    follow: any
-    unfollow: any
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
 }
 
-export const Users: FC<UsersPropsType> = (
+export const Users: FC<PropsType> = (
     {
         currentPage,
         totalUsersCount,
@@ -33,7 +33,7 @@ export const Users: FC<UsersPropsType> = (
                        totalItemsCount={totalUsersCount} pageSize={pageSize}/>
             <div>
                 {
-                    users.map((u: any) => <User
+                    users.map((u: UserType) => <User
                             key={u.id}
                             user={u}
                             followingInProgress={followingInProgress}

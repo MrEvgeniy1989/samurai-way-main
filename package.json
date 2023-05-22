@@ -1,5 +1,5 @@
 {
-  "homepage":"https://MrEvgeniy1989.github.io/samurai-way-main",
+  "homepage": "https://MrEvgeniy1989.github.io/samurai-way-main",
   "name": "samurai-way",
   "version": "0.1.0",
   "private": true,
@@ -7,6 +7,7 @@
     "@testing-library/jest-dom": "5.14.1",
     "@testing-library/react": "12.0.0",
     "@testing-library/user-event": "13.2.1",
+    "@types/classnames": "^2.3.1",
     "antd": "4.18.7",
     "axios": "0.26.0",
     "classnames": "2.3.1",

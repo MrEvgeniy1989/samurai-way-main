@@ -22,9 +22,9 @@ import thunkMiddleware, {ThunkAction} from 'redux-thunk';
 import {FormAction, reducer as formReducer} from 'redux-form';
 import {appReducer, initializedSuccess} from './app-reducer';
 
-export type AppStateType = ReturnType<typeof RootReducer>
+export type AppStateType = ReturnType<typeof rootReducer>
 
-const RootReducer = combineReducers({
+const rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     usersPage: usersReducer,
@@ -42,7 +42,7 @@ declare global {
 }
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-export const store = createStore(RootReducer, composeEnhancers(applyMiddleware(thunkMiddleware)))
+export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunkMiddleware)))
 
 export type ActionsTypes =
     | ReturnType<typeof addPostActionCreator>
