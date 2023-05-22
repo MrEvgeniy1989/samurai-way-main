@@ -1,16 +1,16 @@
 .header {
-    min-height: 60px;
-    background-color: #7a12d9;
+  min-height: 60px;
+  background-color: #7a12d9;
 }
 
 .header img {
-    width: 30px;
+  width: 30px;
 }
 
 .loginBlock {
-    float: right;
+  float: right;
 }
 
-.loginBlock a{
-    color: white;
+.loginBlock a {
+  color: white;
 }
