@@ -1,5 +1,6 @@
 import React from "react";
-import {addPostActionCreator, deletePost, InitialStateType, profileReducer, ProfileType} from "./profile-reducer";
+import {addPostActionCreator, deletePost, InitialStateType, profileReducer} from "./profile-reducer";
+import {ProfileType} from "../types/types";
 
 const initialState: InitialStateType = {
     posts: [
@@ -7,7 +8,8 @@ const initialState: InitialStateType = {
         {id: 2, message: 'It\'s my first post', likesCount: 20},
     ],
     profile: {} as ProfileType,
-    status: ''
+    status: '',
+    newPost: ''
 }
 
 it('message of new post should be correct', () => {

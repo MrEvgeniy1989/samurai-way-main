@@ -1,21 +1,21 @@
-type DialogsDataType = {
+type DialogType = {
     id: number
     name: string
 }
-type MessagesDataType = {
+type MessageType = {
     id: number
     message: string
 }
-export type InitialStateType = {
-    dialogs: DialogsDataType[]
-    messages: MessagesDataType[]
-}
-
+// export type InitialStateType = {
+//     dialogs: DialogType[]
+//     messages: MessageType[]
+// }
+export type InitialStateType = typeof initialState
 type ActionsType = ReturnType<typeof sendMessageCreator>
 
 const SEND_MESSAGE = 'SEND_MESSAGE';
 
-const initialState: InitialStateType = {
+const initialState = {
     dialogs: [
         {id: 1, name: 'Evgenii',},
         {id: 2, name: 'Dimych',},
@@ -24,17 +24,17 @@ const initialState: InitialStateType = {
         {id: 5, name: 'Sasha',},
         {id: 6, name: 'Victor',},
         {id: 7, name: 'Valera',},
-    ],
+    ] as DialogType[],
     messages: [
         {id: 1, message: 'Hi',},
         {id: 2, message: 'How is your it-kamasutra?',},
         {id: 3, message: 'Yo',},
         {id: 4, message: 'Yo',},
         {id: 5, message: 'Yo',},
-    ]
+    ] as MessageType[]
 }
 
-export const dialogsReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const dialogsReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case SEND_MESSAGE:
             let body = action.newMessageBody
@@ -44,4 +44,5 @@ export const dialogsReducer = (state: InitialStateType = initialState, action: A
     }
 }
 
+// Actions
 export const sendMessageCreator = (newMessageBody: string) => ({type: SEND_MESSAGE, newMessageBody}) as const

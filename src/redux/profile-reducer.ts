@@ -2,42 +2,18 @@ import {profileAPI} from '../api/api';
 import {Dispatch} from 'redux';
 import {AppStateType, AppThunk} from "./redux-store";
 import {stopSubmit} from "redux-form";
+import {PhotosType, PostType, ProfileType} from "../types/types";
 
-export type PostDataType = {
-    id: number
-    message: string
-    likesCount: number
-}
-export type ProfileType = {
-    aboutMe: string
-    userId: number
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    contacts: {
-        [key: string]: string | null
-        github: string | null
-        vk: string | null
-        facebook: string | null
-        instagram: string | null
-        twitter: string | null
-        website: string | null
-        youtube: string | null
-        mainLink: string | null
-    }
-    photos: {
-        small: string
-        large: string
-    }
-}
-export type InitialStateType = {
-    posts: PostDataType[]
-    profile: ProfileType
-    status: string
-}
 
+// export type InitialStateType = {
+//     posts: PostType[]
+//     profile: ProfileType
+//     status: string
+// }
+
+export type InitialStateType = typeof initialState
 type ActionsType =
-    ReturnType<typeof addPostActionCreator>
+    | ReturnType<typeof addPostActionCreator>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setStatus>
     | ReturnType<typeof deletePost>
@@ -49,19 +25,21 @@ const SET_STATUS = 'SET_STATUS';
 const DELETE_POST = 'DELETE_POST';
 const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS';
 
-const initialState: InitialStateType = {
+const initialState = {
     posts: [
         {id: 1, message: 'Hi, how are you?', likesCount: 15},
         {id: 2, message: 'It\'s my first post', likesCount: 20},
-    ],
-    profile: {} as ProfileType,
-    status: ''
+    ] as PostType[],
+    // profile: {} as ProfileType,
+    profile: null as ProfileType | null,
+    status: '',
+    newPost: ''
 }
 
 export const profileReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case ADD_POST: {
-            const newPost: PostDataType = {id: 5, message: action.newPostText, likesCount: 0}
+            const newPost: PostType = {id: 5, message: action.newPostText, likesCount: 0}
             return {...state, posts: [...state.posts, newPost]}
         }
         case SET_USER_PROFILE: {
@@ -74,22 +52,21 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
             return {...state, posts: state.posts.filter(p => p.id !== action.postId)}
         }
         case SAVE_PHOTO_SUCCESS: {
-            return {...state, profile: {...state.profile, photos: action.photos}}
+            return {...state, profile: {...state.profile, photos: action.photos} as ProfileType}
         }
         default:
             return state
     }
 }
 
+// Actions
 export const addPostActionCreator = (newPostText: string) => ({type: ADD_POST, newPostText}) as const
 export const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile}) as const
 export const setStatus = (status: string) => ({type: SET_STATUS, status}) as const
 export const deletePost = (postId: number) => ({type: DELETE_POST, postId}) as const
-export const savePhotoSuccess = (photos: { small: string; large: string }) => ({
-    type: 'SAVE_PHOTO_SUCCESS',
-    photos
-}) as const
+export const savePhotoSuccess = (photos: PhotosType) => ({type: SAVE_PHOTO_SUCCESS, photos}) as const
 
+// Thunks
 export const getUserProfile = (userId: number) => async (dispatch: Dispatch) => {
     const response = await profileAPI.getProfile(userId)
 
@@ -108,7 +85,7 @@ export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
             dispatch(setStatus(status))
         }
     } catch (error) {
-          console.log(error)
+        console.log(error)
     }
 }
 export const savePhoto = (file: File) => async (dispatch: Dispatch) => {

@@ -1,13 +1,6 @@
 import {connect} from 'react-redux';
 import {AppStateType} from '../../redux/redux-store';
-import {
-    follow,
-    requestUsers,
-    setCurrentPage,
-    toggleFollowingProgress,
-    unfollow,
-    UserType
-} from '../../redux/users-reducer';
+import {follow, requestUsers, setCurrentPage, toggleFollowingProgress, unfollow,} from '../../redux/users-reducer';
 import React, {ComponentType} from 'react';
 import {Users} from './Users';
 import {Preloader} from '../common/Preloader/Preloader';
@@ -17,9 +10,10 @@ import {
     getPageSize,
     getTotalUsersCount,
     getUserFollowingInProgress,
-    getUsersIsFetching,
-    getUsers
+    getUsers,
+    getUsersIsFetching
 } from '../../redux/users-selectors';
+import {UserType} from "../../types/types";
 
 type MapStateToPropsType = {
     users: UserType[]

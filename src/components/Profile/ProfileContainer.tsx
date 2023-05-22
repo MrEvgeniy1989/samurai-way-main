@@ -1,21 +1,15 @@
 import React, {ComponentType} from 'react';
 import {Profile} from './Profile';
 import {connect} from 'react-redux';
-import {
-    getStatus,
-    getUserProfile,
-    ProfileType,
-    savePhoto,
-    saveProfile,
-    updateStatus
-} from '../../redux/profile-reducer';
+import {getStatus, getUserProfile, savePhoto, saveProfile, updateStatus} from '../../redux/profile-reducer';
 import {AppStateType} from '../../redux/redux-store';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {compose} from 'redux';
+import {ProfileType} from "../../types/types";
 
 
 type MapStateToPropsType = {
-    profile: ProfileType
+    profile: ProfileType | null
     status: string
     authorizedUserId: number | null
     isAuth: boolean

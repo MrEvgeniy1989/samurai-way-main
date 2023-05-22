@@ -1,14 +1,14 @@
 import React, {FC} from 'react';
 import s from './ProfileInfo.module.css';
-import {ProfileType} from '../../../redux/profile-reducer';
 import {Preloader} from '../../common/Preloader/Preloader';
 import {ProfileStatusWithHooks} from './ProfileStatusWithHooks';
 import userPhoto from './../../../assets/images/user.png'
 import {Contact} from "./Contact/Contact";
 import ProfileDataForm from "./ProfileDataForm/ProfileDataForm";
+import {ProfileType} from "../../../types/types";
 
 type ProfileInfoPropsType = {
-    profile: ProfileType
+    profile: ProfileType | null
     status: string
     updateStatus: (status: string) => void
     isOwner: boolean
