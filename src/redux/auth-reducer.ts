@@ -1,4 +1,4 @@
-import { authAPI, securityAPI } from "../api/api";
+import { authAPI, ResultCodeForCaptchaEnum, ResultCodesEnum, securityAPI } from "../api/api";
 import { Dispatch } from "redux";
 import { ThunkDispatch } from "redux-thunk";
 import { FormAction, stopSubmit } from "redux-form";
@@ -49,26 +49,26 @@ export const getCaptchaUrlSuccess = (captchaUrl: string) =>
 
 // Thunks
 export const getAuthUserData = () => async (dispatch: Dispatch<ActionsType>) => {
-  let response = await authAPI.me();
+  let meData = await authAPI.me();
 
-  if (response.data.resultCode === 0) {
-    let { id, email, login } = response.data.data;
+  if (meData.resultCode === ResultCodesEnum.Success) {
+    let { id, email, login } = meData.data;
     dispatch(setAuthUserData(id, email, login, true));
   }
 };
 export const login =
   (email: string, password: string, rememberMe: boolean, captcha: string | null) =>
   async (dispatch: ThunkDispatch<InitialStateType, any, ActionsType>) => {
-    let response = await authAPI.login(email, password, rememberMe, captcha);
+    let data = await authAPI.login(email, password, rememberMe, captcha);
 
-    if (response.data.resultCode === 0) {
+    if (data.resultCode === ResultCodesEnum.Success) {
       // success, get auth data
       await dispatch(getAuthUserData());
     } else {
-      if (response.data.resultCode === 10) {
+      if (data.resultCode === ResultCodeForCaptchaEnum.CaptchaIsRequired) {
         await dispatch(getCaptchaUrl());
       }
-      let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error";
+      let message = data.messages.length > 0 ? data.messages[0] : "Some error";
       dispatch(stopSubmit("login", { _error: message }));
     }
   };
@@ -81,7 +81,7 @@ export const getCaptchaUrl = () => async (dispatch: ThunkDispatch<InitialStateTy
 export const logout = () => async (dispatch: Dispatch<ActionsType>) => {
   let response = await authAPI.logout();
 
-  if (response.data.resultCode === 0) {
+  if (response.data.resultCode === ResultCodesEnum.Success) {
     dispatch(setAuthUserData(null, null, null, false));
   }
 };

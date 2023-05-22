@@ -1,6 +1,27 @@
 import axios from "axios";
 import { ProfileType } from "../types/types";
 
+// Types
+type MeReSTResponseType = {
+  data: { id: number; email: string; login: string };
+  resultCode: ResultCodesEnum;
+  messages: string[];
+};
+type LoginResponseType = {
+  data: { userId: number };
+  resultCode: ResultCodesEnum | ResultCodeForCaptchaEnum;
+  messages: string[];
+};
+
+// Enums
+export enum ResultCodesEnum {
+  Success = 0,
+  Error = 1,
+}
+export enum ResultCodeForCaptchaEnum {
+  CaptchaIsRequired = 10,
+}
+
 const instance = axios.create({
   withCredentials: true,
   baseURL: "https://social-network.samuraijs.com/api/1.0/",
@@ -51,10 +72,17 @@ export const profileAPI = {
 
 export const authAPI = {
   me() {
-    return instance.get(`auth/me`);
+    return instance.get<MeReSTResponseType>(`auth/me`).then((res) => res.data);
   },
-  login(email: string, password: string, rememberMe: boolean = false, captcha?: string | null) {
-    return instance.post(`auth/login`, { email, password, rememberMe, captcha });
+  login(email: string, password: string, rememberMe: boolean = false, captcha: string | null = null) {
+    return instance
+      .post<LoginResponseType>(`auth/login`, {
+        email,
+        password,
+        rememberMe,
+        captcha,
+      })
+      .then((res) => res.data);
   },
   logout() {
     return instance.delete(`auth/login`);
