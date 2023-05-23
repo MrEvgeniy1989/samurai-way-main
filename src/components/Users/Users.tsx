@@ -9,7 +9,6 @@ type PropsType = {
   currentPage: number;
   onPageChanged: (pageNumber: number) => void;
   users: UserType[];
-  toggleFollowingProgress: (isFetching: boolean, userId: number) => void;
   followingInProgress: number[];
   follow: (userId: number) => void;
   unfollow: (userId: number) => void;
