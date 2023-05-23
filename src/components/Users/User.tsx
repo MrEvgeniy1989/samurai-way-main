@@ -7,8 +7,8 @@ import { UserType } from "../../types/types";
 export type PropsType = {
   user: UserType;
   followingInProgress: number[];
-  follow: any;
-  unfollow: any;
+  follow: (userId: number) => void;
+  unfollow: (userId: number) => void;
 };
 
 export const User: FC<PropsType> = ({ user, followingInProgress, unfollow, follow }) => {

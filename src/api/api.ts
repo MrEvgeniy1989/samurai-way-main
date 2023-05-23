@@ -1,7 +1,19 @@
 import axios from "axios";
 import { UserType } from "../types/types";
 
-export const instance = axios.create({
+// Types
+type MeReSTResponseType = {
+  data: { id: number; email: string; login: string };
+  resultCode: ResultCodesEnum;
+  messages: string[];
+};
+type LoginResponseType = {
+  data: { userId: number };
+  resultCode: ResultCodesEnum | ResultCodeForCaptchaEnum;
+  messages: string[];
+};
+
+const instance = axios.create({
   withCredentials: true,
   baseURL: "https://social-network.samuraijs.com/api/1.0/",
   headers: {

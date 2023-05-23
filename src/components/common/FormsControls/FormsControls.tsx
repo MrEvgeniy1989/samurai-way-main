@@ -1,13 +1,14 @@
-import React, { FC, HTMLInputTypeAttribute } from "react";
+import React, { FC } from "react";
 import style from "./FormsControls.module.css";
-import { Field, WrappedFieldInputProps, WrappedFieldMetaProps } from "redux-form";
+import { Field, WrappedFieldMetaProps, WrappedFieldProps } from "redux-form";
+import { FieldValidatorType } from "../../../utils/validators/validators";
 
 type FormsControlsPropsType = {
-  input: WrappedFieldInputProps;
   meta: WrappedFieldMetaProps;
-  placeholder?: string;
-  type?: HTMLInputTypeAttribute;
-  autoFocus?: boolean;
+  //   input: WrappedFieldInputProps;
+  //   // placeholder?: string;
+  //   // type?: HTMLInputTypeAttribute;
+  //   // autoFocus?: boolean;
 };
 
 const FormControl: FC<FormsControlsPropsType> = ({ meta: { touched, error }, children }) => {
@@ -20,7 +21,7 @@ const FormControl: FC<FormsControlsPropsType> = ({ meta: { touched, error }, chi
   );
 };
 
-export const Textarea: FC<FormsControlsPropsType> = (props) => {
+export const Textarea: FC<WrappedFieldProps> = (props) => {
   const { input, meta, ...restProps } = props;
   return (
     <FormControl {...props}>
@@ -29,7 +30,7 @@ export const Textarea: FC<FormsControlsPropsType> = (props) => {
   );
 };
 
-export const Input: FC<FormsControlsPropsType> = (props) => {
+export const Input: FC<WrappedFieldProps> = (props) => {
   const { input, meta, ...restProps } = props;
   return (
     <FormControl {...props}>
@@ -38,15 +39,17 @@ export const Input: FC<FormsControlsPropsType> = (props) => {
   );
 };
 
-export const createField = (
-  placeholder: string | null,
-  name: string,
-  validators: any,
-  component: FC<FormsControlsPropsType>,
+export function createField<FormKeysType extends string>(
+  placeholder: string | undefined,
+  name: FormKeysType,
+  validators: FieldValidatorType[],
+  component: FC<WrappedFieldProps>,
   props: any = {},
   text: string = ""
-) => (
-  <div>
-    <Field placeholder={placeholder} name={name} validate={validators} component={component} {...props} /> {text}
-  </div>
-);
+) {
+  return (
+    <div>
+      <Field placeholder={placeholder} name={name} validate={validators} component={component} {...props} /> {text}
+    </div>
+  );
+}

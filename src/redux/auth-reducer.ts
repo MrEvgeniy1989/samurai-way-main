@@ -1,9 +1,7 @@
+import { authAPI, ResultCodeForCaptchaEnum, ResultCodesEnum, securityAPI } from "../api/api";
 import { Dispatch } from "redux";
 import { ThunkDispatch } from "redux-thunk";
 import { FormAction, stopSubmit } from "redux-form";
-import { authAPI } from "../api/auth-api";
-import { securityAPI } from "../api/security-api";
-import { ResultCodeForCaptchaEnum, ResultCodesEnum } from "../api/api";
 
 type InitialStateType = {
   userId: number | null;
@@ -83,7 +81,7 @@ export const getCaptchaUrl = () => async (dispatch: ThunkDispatch<InitialStateTy
 export const logout = () => async (dispatch: Dispatch<ActionsType>) => {
   let response = await authAPI.logout();
 
-  if (response.data.resultCode === 0) {
+  if (response.data.resultCode === ResultCodesEnum.Success) {
     dispatch(setAuthUserData(null, null, null, false));
   }
 };
