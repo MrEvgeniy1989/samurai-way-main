@@ -1,4 +1,4 @@
-export default 1
+export default 1;
 // import {addPostActionCreator, updateNewPostTextActionCreator} from './profile-reducer';
 // import {sendMessageCreator} from './dialogs-reducer';
 //

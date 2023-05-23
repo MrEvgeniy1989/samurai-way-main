@@ -1,19 +1,18 @@
 .profileInfoImg img {
-    object-fit: cover;
-    width: 100%;
+  object-fit: cover;
+  width: 100%;
 }
 
 .descriptionBlock {
-    padding: 10px;
-    display: flex;
-    gap: 20px;
+  padding: 10px;
+  display: flex;
+  gap: 20px;
 }
 
 .mainPhoto {
-    min-width: 100px;
-    max-width: 300px;
+  min-width: 100px;
+  max-width: 300px;
 }
 
 .fileInput {
-
 }

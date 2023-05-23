@@ -12,18 +12,18 @@
 /*}*/
 
 .app-wrapper {
-    width: 80%;
-    margin: 0 auto;
-    min-height: calc(100vh - 60px);
+  width: 80%;
+  margin: 0 auto;
+  min-height: calc(100vh - 60px);
 }
 
 .appContainer {
-    display: flex;
-    min-height: 50vw;
+  display: flex;
+  min-height: 50vw;
 }
 
 .app-wrapper-content {
-    flex-grow: 1;
-    /*grid-area: c;*/
-    background-color: antiquewhite;
+  flex-grow: 1;
+  /*grid-area: c;*/
+  background-color: antiquewhite;
 }
