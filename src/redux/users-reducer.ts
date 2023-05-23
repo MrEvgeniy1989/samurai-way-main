@@ -1,8 +1,9 @@
-import { ResultCodesEnum, usersAPI } from "../api/api";
+import { ResultCodesEnum } from "../api/api";
 import { ThunkDispatch } from "redux-thunk";
 import { updateObjectInArray } from "../utils/object-helpers";
 import { UserType } from "../types/types";
 import { InferActionsTypes } from "./redux-store";
+import { usersAPI } from "../api/users-api";
 
 export type InitialStateType = typeof initialState;
 type ActionsTypes = InferActionsTypes<typeof userReducerActions>;

@@ -1,19 +1,7 @@
 import axios from "axios";
 import { UserType } from "../types/types";
 
-// Types
-type MeReSTResponseType = {
-  data: { id: number; email: string; login: string };
-  resultCode: ResultCodesEnum;
-  messages: string[];
-};
-type LoginResponseType = {
-  data: { userId: number };
-  resultCode: ResultCodesEnum | ResultCodeForCaptchaEnum;
-  messages: string[];
-};
-
-const instance = axios.create({
+export const instance = axios.create({
   withCredentials: true,
   baseURL: "https://social-network.samuraijs.com/api/1.0/",
   headers: {
@@ -21,15 +9,16 @@ const instance = axios.create({
   },
 });
 
+// Enums
 export enum ResultCodesEnum {
   Success = 0,
   Error = 1,
 }
-
 export enum ResultCodeForCaptchaEnum {
   CaptchaIsRequired = 10,
 }
 
+// Types
 export type GetItemsType = {
   items: Array<UserType>;
   totalCount: number;
@@ -40,3 +29,14 @@ export type APIResponseType<D = {}, RC = ResultCodesEnum> = {
   messages: Array<string>;
   resultCode: RC;
 };
+
+// type MeReSTResponseType = {
+//   data: { id: number; email: string; login: string };
+//   resultCode: ResultCodesEnum;
+//   messages: string[];
+// };
+// type LoginResponseType = {
+//   data: { userId: number };
+//   resultCode: ResultCodesEnum | ResultCodeForCaptchaEnum;
+//   messages: string[];
+// };

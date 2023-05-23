@@ -1,8 +1,8 @@
-import { profileAPI } from "../api/api";
 import { Dispatch } from "redux";
 import { AppStateType, AppThunk } from "./redux-store";
 import { stopSubmit } from "redux-form";
 import { PhotosType, PostType, ProfileType } from "../types/types";
+import { profileAPI } from "../api/profile-api";
 
 // export type InitialStateType = {
 //     posts: PostType[]
@@ -67,20 +67,20 @@ export const savePhotoSuccess = (photos: PhotosType) => ({ type: SAVE_PHOTO_SUCC
 
 // Thunks
 export const getUserProfile = (userId: number) => async (dispatch: Dispatch) => {
-  const response = await profileAPI.getProfile(userId);
+  const data = await profileAPI.getProfile(userId);
 
-  dispatch(setUserProfile(response.data));
+  dispatch(setUserProfile(data));
 };
 export const getStatus = (userId: number) => async (dispatch: Dispatch) => {
-  const response = await profileAPI.getStatus(userId);
+  const data = await profileAPI.getStatus(userId);
 
-  dispatch(setStatus(response.data));
+  dispatch(setStatus(data));
 };
 export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
   try {
-    const response = await profileAPI.updateStatus(status);
+    const data = await profileAPI.updateStatus(status);
 
-    if (response.data.resultCode === 0) {
+    if (data.resultCode === 0) {
       dispatch(setStatus(status));
     }
   } catch (error) {
@@ -88,24 +88,24 @@ export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
   }
 };
 export const savePhoto = (file: File) => async (dispatch: Dispatch) => {
-  const response = await profileAPI.savePhoto(file);
+  const data = await profileAPI.savePhoto(file);
 
-  if (response.data.resultCode === 0) {
-    dispatch(savePhotoSuccess(response.data.data.photos));
+  if (data.resultCode === 0) {
+    dispatch(savePhotoSuccess(data.data.photos));
   }
 };
 export const saveProfile =
   (profile: ProfileType): AppThunk =>
   async (dispatch, getState: () => AppStateType) => {
     const userId = getState().auth.userId;
-    const response = await profileAPI.saveProfile(profile);
+    const data = await profileAPI.saveProfile(profile);
 
-    if (response.data.resultCode === 0) {
+    if (data.resultCode === 0) {
       if (userId) {
         await dispatch(getUserProfile(userId));
       }
     } else {
-      dispatch(stopSubmit("edit-profile", { _error: response.data.messages[0] }));
-      return Promise.reject(response.data.messages[0]);
+      dispatch(stopSubmit("edit-profile", { _error: data.messages[0] }));
+      return Promise.reject(data.messages[0]);
     }
   };
