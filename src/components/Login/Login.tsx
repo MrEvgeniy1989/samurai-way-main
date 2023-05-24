@@ -71,11 +71,9 @@ const Login: FC<LoginPropsType> = (props) => {
   );
 };
 
-const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
+const mapStateToProps = (state: AppStateType) => ({
   captchaUrl: state.auth.captchaUrl,
   isAuth: state.auth.isAuth,
 });
 
-export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, { login })(
-  Login
-);
+export default connect(mapStateToProps, { login })(Login);

@@ -1,13 +1,13 @@
 import React, { ComponentType } from "react";
-import { InitialStateType, sendMessageCreator } from "../../redux/dialogs-reducer";
 import { Dialogs } from "./Dialogs";
 import { connect } from "react-redux";
 import { AppStateType } from "../../redux/redux-store";
 import { compose, Dispatch } from "redux";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
+import { DialogsInitialStateType, dialogsReducerAtions } from "../../redux/dialogs-reducer";
 
 type MapStateToPropsType = {
-  dialogsPage: InitialStateType;
+  dialogsPage: DialogsInitialStateType;
 };
 type MapDispatchToPropsType = {
   sendMessage: (newMessageBody: string) => void;
@@ -22,7 +22,7 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
   return {
     sendMessage: (newMessageBody: string) => {
-      dispatch(sendMessageCreator(newMessageBody));
+      dispatch(dialogsReducerAtions.sendMessage(newMessageBody));
     },
   };
 };
