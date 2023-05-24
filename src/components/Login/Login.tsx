@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import { login } from "../../redux/auth-reducer";
 import { Redirect } from "react-router-dom";
 import { AppStateType } from "../../redux/redux-store";
+import { GetStringKeys } from "../../types/types";
 
 type LoginFormPropsType = {
   captchaUrl: string | null;
@@ -18,7 +19,7 @@ export type LoginFormValuesType = {
   rememberMe: boolean;
   captcha: string | null;
 };
-type LoginFormValuesTypeKeys = Extract<keyof LoginFormValuesType, string>;
+type LoginFormValuesTypeKeys = GetStringKeys<LoginFormValuesType>;
 
 export const LoginForm: FC<InjectedFormProps<LoginFormValuesType, LoginFormPropsType> & LoginFormPropsType> = ({
   handleSubmit,

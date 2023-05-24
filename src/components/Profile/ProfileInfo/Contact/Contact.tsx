@@ -8,7 +8,7 @@ type ContactPropsType = {
 export const Contact: FC<ContactPropsType> = ({ contactTitle, contactValue }) => {
   return (
     <div className={s.contact}>
-      <b>{contactTitle}: </b> {contactValue}
+      <b>{contactTitle}</b>: {contactValue}
     </div>
   );
 };

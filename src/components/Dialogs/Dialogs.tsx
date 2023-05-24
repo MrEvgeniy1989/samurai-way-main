@@ -1,11 +1,11 @@
-import React from "react";
+import React, { FC } from "react";
 import s from "./Dialogs.module.css";
 import { DialogItem } from "./DialogItem/DialogItem";
 import { Message } from "./Message/Message";
 import { DialogsPropsType } from "./DialogsContainer";
 import AddMessageForm, { FormDataType } from "./AddMessageForm";
 
-export const Dialogs = (props: DialogsPropsType) => {
+export const Dialogs: FC<DialogsPropsType> = (props) => {
   const state = props.dialogsPage;
 
   const dialogsElements = state.dialogs.map((d) => <DialogItem name={d.name} key={d.id} id={d.id} />);

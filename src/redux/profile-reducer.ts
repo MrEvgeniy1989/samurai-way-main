@@ -28,7 +28,7 @@ export const profileReducer = (state = initialState, action: ActionsType): Profi
       return { ...state, profile: action.profile };
     }
     case "SN/PROFILE/DELETE_POST":
-      return { ...state, posts: state.posts.filter((p) => p.id != action.postId) };
+      return { ...state, posts: state.posts.filter((p) => p.id !== action.postId) };
     case "SN/PROFILE/SAVE_PHOTO_SUCCESS":
       return { ...state, profile: { ...state.profile, photos: action.photos } as ProfileType };
     default:

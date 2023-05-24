@@ -1,24 +1,19 @@
 import React, { ChangeEvent, FC, useEffect, useState } from "react";
 
-type ProfileStatusWithHooksPropsType = {
-  status: string;
-  updateStatus: (status: string) => void;
-};
-
 export const ProfileStatusWithHooks: FC<ProfileStatusWithHooksPropsType> = ({ status, updateStatus }) => {
-  const [editMode, setEditMode] = useState<boolean>(false);
-  const [newStatus, setNewStatus] = useState<string>(status);
+  const [editMode, setEditMode] = useState(false);
+  const [newStatus, setNewStatus] = useState(status);
 
   useEffect(() => {
-    if (status !== newStatus) setNewStatus(status);
+    setNewStatus(status);
   }, [status]);
 
+  const activateEditMode = () => {
+    setEditMode(true);
+  };
   const deActivateEditMode = () => {
     setEditMode(false);
     updateStatus(newStatus);
-  };
-  const activateEditMode = () => {
-    setEditMode(true);
   };
   const onStatusChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setNewStatus(e.currentTarget.value);
@@ -36,4 +31,10 @@ export const ProfileStatusWithHooks: FC<ProfileStatusWithHooksPropsType> = ({ st
       )}
     </div>
   );
+};
+
+// Types
+type ProfileStatusWithHooksPropsType = {
+  status: string;
+  updateStatus: (status: string) => void;
 };

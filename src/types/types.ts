@@ -4,7 +4,6 @@ export type PostType = {
   likesCount: number;
 };
 export type ContactsType = {
-  [key: string]: string | null;
   github: string | null;
   vk: string | null;
   facebook: string | null;
@@ -35,3 +34,5 @@ export type UserType = {
   photos: PhotosType;
   followed: boolean;
 };
+
+export type GetStringKeys<T> = Extract<keyof T, string>;

@@ -8,6 +8,7 @@ import { AppStateType, store } from "./redux/redux-store";
 import { compose } from "redux";
 import { initializeApp } from "./redux/app-reducer";
 import { Preloader } from "./components/common/Preloader/Preloader";
+import { withSuspense } from "./hoc/withSuspense";
 
 const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"));
 const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"));
@@ -19,16 +20,18 @@ const Settings = React.lazy(() =>
 );
 const Login = React.lazy(() => import("./components/Login/Login"));
 
-type MapStateToPropsType = {
-  initialized: boolean;
-};
-type MapDispatchToPropsType = {
-  initializeApp: () => void;
-};
-type AppPropsType = MapStateToPropsType & MapDispatchToPropsType;
+const SuspendedDialogs = withSuspense(DialogsContainer);
+const SuspendedProfile = withSuspense(ProfileContainer);
+const SuspendedUser = withSuspense(UsersContainer);
+const SuspendedNews = withSuspense(News);
+const SuspendedMusic = withSuspense(Music);
+const SuspendedSettings = withSuspense(Settings);
+const SuspendedLogin = withSuspense(Login);
+
+// const SuspendedChatPage = withSuspense(ChatPage)
 
 class App extends React.Component<AppPropsType, AppStateType> {
-  catchAllUnhandledErrors = (reason?: any, promise?: Promise<any>) => {
+  catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
     alert("Some error occured, please try again later");
   };
 
@@ -53,76 +56,13 @@ class App extends React.Component<AppPropsType, AppStateType> {
           <div className="app-wrapper-content">
             <Switch>
               <Route exact path="/" render={() => <Redirect to={"/profile"} />} />
-              <Route
-                path="/profile/:userId?"
-                render={() => {
-                  return (
-                    <React.Suspense fallback={<Preloader />}>
-                      <ProfileContainer />
-                    </React.Suspense>
-                  );
-                }}
-              />
-              <Route
-                path="/dialogs"
-                render={() => {
-                  return (
-                    <React.Suspense fallback={<Preloader />}>
-                      <DialogsContainer />
-                    </React.Suspense>
-                  );
-                }}
-              />
-              <Route
-                path="/users"
-                render={() => {
-                  return (
-                    <React.Suspense fallback={<Preloader />}>
-                      <UsersContainer />
-                    </React.Suspense>
-                  );
-                }}
-              />
-              <Route
-                path="/news"
-                render={() => {
-                  return (
-                    <React.Suspense fallback={<Preloader />}>
-                      <News />
-                    </React.Suspense>
-                  );
-                }}
-              />
-              <Route
-                path="/music"
-                render={() => {
-                  return (
-                    <React.Suspense fallback={<Preloader />}>
-                      <Music />
-                    </React.Suspense>
-                  );
-                }}
-              />
-              <Route
-                path="/settings"
-                render={() => {
-                  return (
-                    <React.Suspense fallback={<Preloader />}>
-                      <Settings />
-                    </React.Suspense>
-                  );
-                }}
-              />
-              <Route
-                path="/login"
-                render={() => {
-                  return (
-                    <React.Suspense fallback={<Preloader />}>
-                      <Login />
-                    </React.Suspense>
-                  );
-                }}
-              />
+              <Route path="/profile/:userId?" render={() => <SuspendedProfile />} />
+              <Route path="/dialogs" render={() => <SuspendedDialogs />} />
+              <Route path="/users" render={() => <SuspendedUser />} />
+              <Route path="/news" render={() => <SuspendedNews />} />
+              <Route path="/music" render={() => <SuspendedMusic />} />
+              <Route path="/settings" render={() => <SuspendedSettings />} />
+              <Route path="/login" render={() => <SuspendedLogin />} />
               <Route path="*" render={() => <div>404 NOT FOUND</div>} />
             </Switch>
           </div>
@@ -131,11 +71,7 @@ class App extends React.Component<AppPropsType, AppStateType> {
     );
   }
 }
-
-const mapStateToProps = (state: AppStateType) => ({
-  initialized: state.app.initialized,
-});
-
+const mapStateToProps = (state: AppStateType) => ({ initialized: state.app.initialized });
 let AppContainer = compose<ComponentType>(withRouter, connect(mapStateToProps, { initializeApp }))(App);
 
 const SamuraiJSApp = () => {
@@ -147,5 +83,10 @@ const SamuraiJSApp = () => {
     </HashRouter>
   );
 };
-
 export default SamuraiJSApp;
+
+// Types
+// type MapStateToPropsType = { initialized: boolean };
+type MapStateToPropsType = ReturnType<typeof mapStateToProps>;
+type MapDispatchToPropsType = { initializeApp: () => void };
+type AppPropsType = MapStateToPropsType & MapDispatchToPropsType;
