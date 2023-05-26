@@ -30,8 +30,8 @@ export const Users: FC<PropsType> = () => {
   useEffect(() => {
     // const parsed = queryString.parse(history.location.search.substr(1)) as QueryParamsType;
 
-    let actualPage = currentPage;
-    let actualFilter = filter;
+    // let actualPage = currentPage;
+    // let actualFilter = filter;
 
     // if (!!parsed.page) actualPage = Number(parsed.page);
     //
@@ -49,7 +49,7 @@ export const Users: FC<PropsType> = () => {
     //     break;
     // }
 
-    dispatch(requestUsers(actualPage, pageSize, actualFilter));
+    dispatch(requestUsers(currentPage, pageSize, filter));
   }, []);
 
   useEffect(() => {
@@ -104,15 +104,5 @@ export const Users: FC<PropsType> = () => {
 };
 
 // Types
-type PropsType = {
-  totalUsersCount: number;
-  pageSize: number;
-  currentPage: number;
-  onPageChanged: (pageNumber: number) => void;
-  onFilterChanged: (filter: FilterType) => void;
-  users: UserType[];
-  followingInProgress: number[];
-  follow: (userId: number) => void;
-  unfollow: (userId: number) => void;
-};
+type PropsType = {};
 type QueryParamsType = { term?: string; page?: string; friend?: string };

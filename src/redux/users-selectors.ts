@@ -19,7 +19,7 @@ export const getCurrentPage = (state: AppStateType) => {
 export const getTotalUsersCount = (state: AppStateType) => {
   return state.usersPage.totalUsersCount;
 };
-export const getUsersIsFetching = (state: AppStateType) => {
+export const getIsFetching = (state: AppStateType) => {
   return state.usersPage.isFetching;
 };
 export const getFollowingInProgress = (state: AppStateType) => {
