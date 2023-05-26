@@ -10,10 +10,10 @@ describe("Paginator component tests", () => {
     expect(spans.length).toBe(10);
   });
 
-  test("if pages count is more than 10 button NEXT should be present", () => {
-    const component = create(<Paginator totalItemsCount={11} pageSize={1} portionSize={10} onPageChanged={() => {}} />);
+  test("if pages count is more than 10 button NEXT and LAST should be present", () => {
+    const component = create(<Paginator totalItemsCount={11} pageSize={1} portionSize={10} />);
     const root = component.root;
     let button = root.findAllByType("button");
-    expect(button.length).toBe(1);
+    expect(button.length).toBeGreaterThanOrEqual(2);
   });
 });

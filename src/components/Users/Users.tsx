@@ -37,6 +37,12 @@ export const Users: FC<PropsType> = ({
           <User key={u.id} user={u} followingInProgress={followingInProgress} follow={follow} unfollow={unfollow} />
         ))}
       </div>
+      <Paginator
+        currentPage={currentPage}
+        onPageChanged={onPageChanged}
+        totalItemsCount={totalUsersCount}
+        pageSize={pageSize}
+      />
     </div>
   );
 };
