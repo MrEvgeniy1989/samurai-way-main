@@ -3,9 +3,8 @@ import { Paginator } from "../common/Paginator/Paginator";
 import { User } from "./User";
 import { UserType } from "../../types/types";
 import { useHistory } from "react-router-dom";
-// import * as queryString from "querystring";
 import { useDispatch, useSelector } from "react-redux";
-import { FilterType, requestUsers } from "../../redux/users-reducer";
+import { FilterType, follow, requestUsers, unfollow } from "../../redux/users-reducer";
 import {
   getCurrentPage,
   getFollowingInProgress,
@@ -15,6 +14,7 @@ import {
   getUsersFilter,
 } from "../../redux/users-selectors";
 import { UsersSearchForm } from "./UsersSearchForm";
+import * as queryString from "querystring";
 
 export const Users: FC<PropsType> = () => {
   const users = useSelector(getUsers);
@@ -28,28 +28,27 @@ export const Users: FC<PropsType> = () => {
   const history = useHistory();
 
   useEffect(() => {
-    // const parsed = queryString.parse(history.location.search.substr(1)) as QueryParamsType;
+    const parsed = queryString.parse(history.location.search.substr(1)) as QueryParamsType;
 
-    // let actualPage = currentPage;
-    // let actualFilter = filter;
+    let actualPage = currentPage;
+    let actualFilter = filter;
 
-    // if (!!parsed.page) actualPage = Number(parsed.page);
-    //
-    // if (!!parsed.term) actualFilter = { ...actualFilter, term: parsed.term as string };
-    //
-    // switch (parsed.friend) {
-    //   case "null":
-    //     actualFilter = { ...actualFilter, friend: null };
-    //     break;
-    //   case "true":
-    //     actualFilter = { ...actualFilter, friend: true };
-    //     break;
-    //   case "false":
-    //     actualFilter = { ...actualFilter, friend: false };
-    //     break;
-    // }
+    if (!!parsed.page) actualPage = Number(parsed.page);
+    if (!!parsed.term) actualFilter = { ...actualFilter, term: parsed.term as string };
 
-    dispatch(requestUsers(currentPage, pageSize, filter));
+    switch (parsed.friend) {
+      case "null":
+        actualFilter = { ...actualFilter, friend: null };
+        break;
+      case "true":
+        actualFilter = { ...actualFilter, friend: true };
+        break;
+      case "false":
+        actualFilter = { ...actualFilter, friend: false };
+        break;
+    }
+
+    dispatch(requestUsers(actualPage, pageSize, actualFilter));
   }, []);
 
   useEffect(() => {
@@ -61,8 +60,7 @@ export const Users: FC<PropsType> = () => {
 
     history.push({
       pathname: "/users",
-      // pathname: "/developers",
-      // search: queryString.stringify(query),
+      search: queryString.stringify(query),
     });
   }, [filter, currentPage]);
 
@@ -72,10 +70,10 @@ export const Users: FC<PropsType> = () => {
   const onFilterChanged = (filter: FilterType) => {
     dispatch(requestUsers(1, pageSize, filter));
   };
-  const follow = (userId: number) => {
+  const followUser = (userId: number) => {
     dispatch(follow(userId));
   };
-  const unfollow = (userId: number) => {
+  const unfollowUser = (userId: number) => {
     dispatch(unfollow(userId));
   };
 
@@ -90,7 +88,13 @@ export const Users: FC<PropsType> = () => {
       />
       <div>
         {users.map((u: UserType) => (
-          <User key={u.id} user={u} followingInProgress={followingInProgress} follow={follow} unfollow={unfollow} />
+          <User
+            key={u.id}
+            user={u}
+            followingInProgress={followingInProgress}
+            follow={followUser}
+            unfollow={unfollowUser}
+          />
         ))}
       </div>
       <Paginator
