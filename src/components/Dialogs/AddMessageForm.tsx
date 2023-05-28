@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { InjectedFormProps, reduxForm } from "redux-form";
-import { createField, Textarea } from "../common/FormsControls/FormsControls";
+import { createField, MyTextarea } from "../common/FormsControls/FormsControls";
 import { maxLengthCreator, required } from "../../utils/validators/validators";
 
 const maxLength50 = maxLengthCreator(50);
@@ -15,7 +15,7 @@ const AddMessageForm: FC<InjectedFormProps<FormDataType, AddMessageFormPropsType
           "Enter your message",
           "newMessageBody",
           [required, maxLength50],
-          Textarea
+          MyTextarea
         )}
         {/*        <Field
           component={Textarea}

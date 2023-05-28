@@ -2,6 +2,8 @@ import React, { FC } from "react";
 import style from "./FormsControls.module.css";
 import { Field, WrappedFieldMetaProps, WrappedFieldProps } from "redux-form";
 import { FieldValidatorType } from "../../../utils/validators/validators";
+import TextArea from "antd/es/input/TextArea";
+import { Input } from "antd";
 
 type FormsControlsPropsType = {
   meta: WrappedFieldMetaProps;
@@ -21,20 +23,20 @@ const FormControl: FC<FormsControlsPropsType> = ({ meta: { touched, error }, chi
   );
 };
 
-export const Textarea: FC<WrappedFieldProps> = (props) => {
+export const MyTextarea: FC<WrappedFieldProps> = (props) => {
   const { input, meta, ...restProps } = props;
   return (
     <FormControl {...props}>
-      <textarea {...input} {...restProps} />
+      <TextArea {...input} {...restProps} />
     </FormControl>
   );
 };
 
-export const Input: FC<WrappedFieldProps> = (props) => {
+export const MyInput: FC<WrappedFieldProps> = (props) => {
   const { input, meta, ...restProps } = props;
   return (
     <FormControl {...props}>
-      <input {...input} {...restProps} />
+      <Input {...input} {...restProps} />
     </FormControl>
   );
 };
@@ -48,8 +50,8 @@ export function createField<FormKeysType extends string>(
   text: string = ""
 ) {
   return (
-    <div>
+    <>
       <Field placeholder={placeholder} name={name} validate={validators} component={component} {...props} /> {text}
-    </div>
+    </>
   );
 }

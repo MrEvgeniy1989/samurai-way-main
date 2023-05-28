@@ -1,0 +1,15 @@
+.addPostForm {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.addPostForm__inputContainer {
+    flex: 1 1 auto;
+}
+
+.addPostForm__inputContainer textarea{
+    width: 750px;
+    resize: none;
+}

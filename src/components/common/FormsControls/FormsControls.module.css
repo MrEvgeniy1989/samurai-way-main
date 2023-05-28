@@ -1,4 +1,5 @@
 .formControl {
+  display: inline-block;
 }
 
 .formControl.error input,

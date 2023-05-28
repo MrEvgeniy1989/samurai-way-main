@@ -2,10 +2,11 @@ import React, { ChangeEvent, FC } from "react";
 import s from "./ProfileInfo.module.css";
 import { Preloader } from "../../common/Preloader/Preloader";
 import { ProfileStatusWithHooks } from "./ProfileStatusWithHooks";
-import userPhoto from "./../../../assets/images/user.png";
 import { Contact } from "./Contact/Contact";
 import ProfileDataForm from "./ProfileDataForm/ProfileDataForm";
 import { ContactsType, ProfileType } from "../../../types/types";
+import { Button } from "antd";
+import { EditOutlined } from "@ant-design/icons";
 
 type ProfileInfoPropsType = {
   profile: ProfileType | null;
@@ -30,11 +31,11 @@ export const ProfileInfo: FC<ProfileInfoPropsType> = ({
     return <Preloader />;
   }
 
-  const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length) {
-      savePhoto(e.target.files[0]);
-    }
-  };
+  // const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
+  //   if (e.target.files && e.target.files.length) {
+  //     savePhoto(e.target.files[0]);
+  //   }
+  // };
 
   const onSubmit = (formData: ProfileType) => {
     saveProfile(formData).then(() => {
@@ -43,25 +44,21 @@ export const ProfileInfo: FC<ProfileInfoPropsType> = ({
   };
 
   return (
-    <div>
-      <div className={s.descriptionBlock}>
-        <img src={profile.photos.large || userPhoto} alt={"Avatar"} className={s.mainPhoto} />
-        {isOwner && <input type="file" className={s.fileInput} onChange={onMainPhotoSelected} />}
-
-        {editMode ? (
-          <ProfileDataForm onSubmit={onSubmit} profile={profile} initialValues={profile} />
-        ) : (
-          <ProfileData
-            profile={profile}
-            isOwner={isOwner}
-            goToEditMode={() => {
-              setEditMode(true);
-            }}
-          />
-        )}
-
+    <div className={s.descriptionBlock}>
+      <div className={s.profileStatus}>
         <ProfileStatusWithHooks status={status} updateStatus={updateStatus} />
       </div>
+      {editMode ? (
+        <ProfileDataForm onSubmit={onSubmit} profile={profile} initialValues={profile} />
+      ) : (
+        <ProfileData
+          profile={profile}
+          isOwner={isOwner}
+          goToEditMode={() => {
+            setEditMode(true);
+          }}
+        />
+      )}
     </div>
   );
 };
@@ -74,33 +71,53 @@ type ProfileDataPropsType = {
 
 const ProfileData: FC<ProfileDataPropsType> = ({ profile, isOwner, goToEditMode }) => {
   return (
-    <div>
+    <div className={s.profileData}>
+      <div className={s.profileDataContent}>
+        <div>
+          <span>
+            <b>Full name</b>:{" "}
+          </span>
+          {profile.fullName}
+        </div>
+        <div>
+          <span>
+            <b>Looking for a job</b>:{" "}
+          </span>
+          {profile.lookingForAJob ? "yes" : "no"}
+        </div>
+        {profile.lookingForAJob && (
+          <div>
+            <span>
+              <b>My professional skills</b>:{" "}
+            </span>
+            {profile.lookingForAJobDescription}
+          </div>
+        )}
+        <div>
+          <span>
+            <b>About me</b>:{" "}
+          </span>
+          {profile.aboutMe}
+        </div>
+        <br />
+        <div>
+          <b>Contacts</b>:{" "}
+          {Object.keys(profile.contacts).map((key) => {
+            return (
+              profile.contacts[key as keyof ContactsType] && (
+                <Contact key={key} contactTitle={key} contactValue={profile.contacts[key as keyof ContactsType]} />
+              )
+            );
+          })}
+        </div>
+      </div>
       {isOwner && (
-        <div>
-          <button onClick={goToEditMode}>Edit</button>
+        <div className={s.editButton}>
+          <Button onClick={goToEditMode}>
+            <EditOutlined />
+          </Button>
         </div>
       )}
-      <div>
-        <b>Full name</b>: {profile.fullName}
-      </div>
-      <div>
-        <b>Looking for a job</b>: {profile.lookingForAJob ? "yes" : "no"}
-      </div>
-      {profile.lookingForAJob && (
-        <div>
-          <b>My professional skills</b>: {profile.lookingForAJobDescription}
-        </div>
-      )}
-      <div>
-        <b>About me</b>: {profile.aboutMe}
-      </div>
-      <br />
-      <div>
-        <b>Contacts</b>:{" "}
-        {Object.keys(profile.contacts).map((key) => {
-          return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key as keyof ContactsType]} />;
-        })}
-      </div>
     </div>
   );
 };

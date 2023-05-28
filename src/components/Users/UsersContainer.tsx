@@ -10,6 +10,7 @@ type UsersPagePropsType = {
 
 export const UsersPage: React.FC<UsersPagePropsType> = ({ pageTitle }) => {
   const isFetching = useSelector(getIsFetching);
+
   return (
     <>
       <h2>{pageTitle}</h2>

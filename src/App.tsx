@@ -29,6 +29,7 @@ const Settings = React.lazy(() =>
 const LoginPage = React.lazy(() =>
   import("./components/Login/LoginPage").then((module) => ({ default: module.LoginPage }))
 );
+const ChatPage = React.lazy(() => import("./pages/Chat/ChatPage").then((module) => ({ default: module.ChatPage })));
 
 const SuspendedDialogs = withSuspense(DialogsContainer);
 const SuspendedProfile = withSuspense(ProfileContainer);
@@ -37,8 +38,7 @@ const SuspendedNews = withSuspense(News);
 const SuspendedMusic = withSuspense(Music);
 const SuspendedSettings = withSuspense(Settings);
 const SuspendedLogin = withSuspense(LoginPage);
-
-// const SuspendedChatPage = withSuspense(ChatPage)
+const SuspendedChatPage = withSuspense(ChatPage);
 
 class App extends React.Component<AppPropsType, AppStateType> {
   catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
@@ -59,13 +59,12 @@ class App extends React.Component<AppPropsType, AppStateType> {
       return <Preloader />;
     }
     return (
-      <Layout>
+      <Layout className="layout">
         <Header />
         <Content style={{ padding: "0 50px" }}>
           <Breadcrumb style={{ margin: "16px 0" }}>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
+            <Breadcrumb.Item>Profile</Breadcrumb.Item>
           </Breadcrumb>
           <Layout className="site-layout-background" style={{ padding: "24px 0" }}>
             <Sider className="site-layout-background" width={200}>
@@ -85,6 +84,10 @@ class App extends React.Component<AppPropsType, AppStateType> {
 
                 <Menu.Item key="3" icon={<LaptopOutlined />}>
                   <Link to="/developers">Developers</Link>
+                </Menu.Item>
+
+                <Menu.Item key="9">
+                  <Link to="/chat">Chat</Link>
                 </Menu.Item>
 
                 <Menu.Item key="4">
@@ -112,11 +115,12 @@ class App extends React.Component<AppPropsType, AppStateType> {
                 <Route exact path="/" render={() => <Redirect to={"/profile"} />} />
                 <Route path="/profile/:userId?" render={() => <SuspendedProfile />} />
                 <Route path="/dialogs" render={() => <SuspendedDialogs />} />
-                <Route path="/users" render={() => <SuspendedUser pageTitle={"Самураи"} />} />
+                <Route path="/developers" render={() => <SuspendedUser pageTitle={"Самураи"} />} />
                 <Route path="/news" render={() => <SuspendedNews />} />
                 <Route path="/music" render={() => <SuspendedMusic />} />
                 <Route path="/settings" render={() => <SuspendedSettings />} />
                 <Route path="/login" render={() => <SuspendedLogin />} />
+                <Route path="/chat" render={() => <SuspendedChatPage />} />
                 <Route path="*" render={() => <div>404 NOT FOUND</div>} />
               </Switch>
             </Content>

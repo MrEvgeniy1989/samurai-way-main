@@ -1,0 +1,42 @@
+.message {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.message__user img {
+    width: 50px;
+}
+
+.message__text {
+    display: flex;
+    flex-direction: column;
+}
+
+.addMessageForm {
+    display: flex;
+    justify-content: center;
+    background: #e5e4e4;
+    height: 100px;
+}
+
+.message__form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 90%;
+}
+
+.message__form TextArea {
+    height: 70%;
+    border-radius: 10px;
+    resize: none;
+}
+
+.message__form button {
+    width: 150px;
+    height: 50%;
+    border-radius: 10px;
+}
