@@ -1,5 +1,5 @@
 .profileInfo {
-    display: flex;
+  display: flex;
 }
 
 /*.avatarBlock {*/
@@ -46,30 +46,30 @@
 /*}*/
 
 .descriptionBlock {
-    padding: 0 10px;
-    /*display: flex;*/
-    /*gap: 20px;*/
+  padding: 0 10px;
+  /*display: flex;*/
+  /*gap: 20px;*/
 }
 
 .profileStatus {
-    padding: 10px;
-    background: rgb(255, 255, 255);
-    margin-bottom: 10px;
-    border-radius: 5px;
+  padding: 10px;
+  background: rgb(255, 255, 255);
+  margin-bottom: 10px;
+  border-radius: 5px;
 }
 
 .profileData {
-    display: flex;
-    justify-content: space-between;
-    flex-grow: 1;
-    padding: 10px;
-    background: rgb(255, 255, 255);
-    border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+  padding: 10px;
+  background: rgb(255, 255, 255);
+  border-radius: 5px;
 }
 
 .profileDataContent span {
-    display: inline-block;
-    width: 200px;
+  display: inline-block;
+  width: 200px;
 }
 
 .editButton {

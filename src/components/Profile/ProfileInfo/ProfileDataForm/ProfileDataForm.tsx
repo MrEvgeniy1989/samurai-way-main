@@ -1,11 +1,11 @@
-import React, { FC } from "react";
-import { createField, MyInput, MyTextarea } from "../../../common/FormsControls/FormsControls";
-import { InjectedFormProps, reduxForm } from "redux-form";
-import styleFormControls from "../../../common/FormsControls/FormsControls.module.css";
-import { GetStringKeys, ProfileType } from "../../../../types/types";
-import s from "./ProfileDataForm.module.css";
-import { SaveOutlined } from "@ant-design/icons";
-import { Button } from "antd";
+import React, { FC } from 'react';
+import { createField, MyInput, MyTextarea } from '../../../common/FormsControls/FormsControls';
+import { InjectedFormProps, reduxForm } from 'redux-form';
+import styleFormControls from '../../../common/FormsControls/FormsControls.module.css';
+import { GetStringKeys, ProfileType } from '../../../../types/types';
+import s from './ProfileDataForm.module.css';
+import { SaveOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
 
 type ProfileDataFormPropsType = {
   profile: ProfileType;
@@ -25,41 +25,41 @@ const ProfileDataForm: FC<InjectedFormProps<ProfileType, ProfileDataFormPropsTyp
 
         <div>
           <span>
-            <b>Full name</b>:{" "}
+            <b>Full name</b>:{' '}
           </span>
-          {createField<ProfileTypeKeys>("Full name", "fullName", [], MyInput)}
+          {createField<ProfileTypeKeys>('Full name', 'fullName', [], MyInput)}
         </div>
         <div>
           <span>
-            <b>Looking for a job</b>:{" "}
+            <b>Looking for a job</b>:{' '}
           </span>
-          {createField<ProfileTypeKeys>("", "lookingForAJob", [], MyInput, { type: "checkbox" })}
-        </div>
-
-        <div>
-          <span>
-            <b>My professional skills</b>:{" "}
-          </span>
-          {createField<ProfileTypeKeys>("My professional skills", "lookingForAJobDescription", [], MyTextarea)}
+          {createField<ProfileTypeKeys>('', 'lookingForAJob', [], MyInput, { type: 'checkbox' })}
         </div>
 
         <div>
           <span>
-            <b>About me</b>:{" "}
+            <b>My professional skills</b>:{' '}
           </span>
-          {createField<ProfileTypeKeys>("About me", "aboutMe", [], MyTextarea)}
+          {createField<ProfileTypeKeys>('My professional skills', 'lookingForAJobDescription', [], MyTextarea)}
+        </div>
+
+        <div>
+          <span>
+            <b>About me</b>:{' '}
+          </span>
+          {createField<ProfileTypeKeys>('About me', 'aboutMe', [], MyTextarea)}
         </div>
 
         <div className={s.contacts}>
           <span className={s.contactsTitle}>
-            <b>Contacts</b>:{" "}
+            <b>Contacts</b>:{' '}
           </span>
-          {Object.keys(profile.contacts).map((key) => {
+          {Object.keys(profile.contacts).map(key => {
             return (
               <div key={key} className={s.contact}>
                 <b>
                   <span>{key}: </span>
-                  {createField(key, "contacts." + key, [], MyInput)}
+                  {createField(key, 'contacts.' + key, [], MyInput)}
                 </b>
               </div>
             );
@@ -75,7 +75,7 @@ const ProfileDataForm: FC<InjectedFormProps<ProfileType, ProfileDataFormPropsTyp
   );
 };
 
-const ProfileDataFormReduxForm = reduxForm<ProfileType, ProfileDataFormPropsType>({ form: "edit-profile" })(
-  ProfileDataForm
+const ProfileDataFormReduxForm = reduxForm<ProfileType, ProfileDataFormPropsType>({ form: 'edit-profile' })(
+  ProfileDataForm,
 );
 export default ProfileDataFormReduxForm;

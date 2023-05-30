@@ -1,8 +1,8 @@
-import { usersReducerActions, follow, unfollow } from "./users-reducer";
-import { usersAPI } from "../api/users-api";
-import { APIResponseType, ResultCodesEnum } from "../api/api";
+import { usersReducerActions, follow, unfollow } from './users-reducer';
+import { usersAPI } from '../api/users-api';
+import { APIResponseType, ResultCodesEnum } from '../api/api';
 
-jest.mock("../api/users-api");
+jest.mock('../api/users-api');
 const userAPIMock = usersAPI as jest.Mocked<typeof usersAPI>;
 
 const dispatchMock = jest.fn();
@@ -21,7 +21,7 @@ const result: APIResponseType = {
   data: {},
 };
 
-test("success follow thunk", async () => {
+test('success follow thunk', async () => {
   const thunk = follow(1);
   userAPIMock.follow.mockReturnValue(Promise.resolve(result));
   await thunk(dispatchMock, getStateMock, {});
@@ -32,7 +32,7 @@ test("success follow thunk", async () => {
   expect(dispatchMock).toHaveBeenNthCalledWith(3, usersReducerActions.toggleFollowingProgress(false, 1));
 });
 
-test("success unfollow thunk", async () => {
+test('success unfollow thunk', async () => {
   const thunk = unfollow(1);
   userAPIMock.unfollow.mockReturnValue(Promise.resolve(result));
   await thunk(dispatchMock, getStateMock, {});

@@ -1,16 +1,16 @@
-import React, { ChangeEvent, FC } from "react";
-import s from "./Profile.module.css";
-import { ProfileInfo } from "./ProfileInfo/ProfileInfo";
-import { MyPostsContainer } from "./MyPosts/MyPostsContainer";
-import { ProfileType } from "../../types/types";
-import userPhoto from "../../assets/images/user.png";
-import { Image, Input } from "antd";
-import { AppStateType } from "../../redux/redux-store";
-import { useSelector } from "react-redux";
-import { DownloadOutlined } from "@ant-design/icons";
-import { savePhoto } from "../../redux/profile-reducer";
+import React, { ChangeEvent, FC } from 'react';
+import s from './Profile.module.css';
+import { ProfileInfo } from './ProfileInfo/ProfileInfo';
+import { MyPostsContainer } from './MyPosts/MyPostsContainer';
+import { ProfileType } from '../../types/types';
+import userPhoto from '../../assets/images/user.png';
+import { Image, Input } from 'antd';
+import { AppStateType } from '../../redux/redux-store';
+import { useSelector } from 'react-redux';
+import { DownloadOutlined } from '@ant-design/icons';
+import { savePhoto } from '../../redux/profile-reducer';
 
-export const Profile: FC<ProfilePropsType> = (props) => {
+export const Profile: FC<ProfilePropsType> = props => {
   const profile = useSelector((state: AppStateType) => state.profilePage.profile);
 
   const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
@@ -26,7 +26,7 @@ export const Profile: FC<ProfilePropsType> = (props) => {
           className={s.mainPhoto}
           preview={{ className: s.previewImage }}
           src={profile?.photos.large || userPhoto}
-          alt={"Avatar"}
+          alt={'Avatar'}
         />
         {/*<img src={profile.photos.large || userPhoto} alt={"Avatar"} className={s.mainPhoto} />*/}
         {props.isOwner && (
@@ -40,7 +40,7 @@ export const Profile: FC<ProfilePropsType> = (props) => {
       </div>
       <div className={s.profileContent}>
         <ProfileInfo
-          savePhoto={props.savePhoto}
+          // savePhoto={props.savePhoto}
           isOwner={props.isOwner}
           profile={props.profile}
           status={props.status}

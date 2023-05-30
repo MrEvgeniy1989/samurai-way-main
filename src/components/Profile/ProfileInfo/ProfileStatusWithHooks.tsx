@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useEffect, useState } from "react";
+import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 
 export const ProfileStatusWithHooks: FC<ProfileStatusWithHooksPropsType> = ({ status, updateStatus }) => {
   const [editMode, setEditMode] = useState(false);
@@ -22,7 +22,7 @@ export const ProfileStatusWithHooks: FC<ProfileStatusWithHooksPropsType> = ({ st
     <div>
       {!editMode ? (
         <div>
-          <b>Status: </b> <span onDoubleClick={activateEditMode}>{status || "------"}</span>
+          <b>Status: </b> <span onDoubleClick={activateEditMode}>{status || '------'}</span>
         </div>
       ) : (
         <div>

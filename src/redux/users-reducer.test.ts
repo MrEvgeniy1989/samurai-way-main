@@ -1,4 +1,4 @@
-import { usersReducer, usersReducerActions, UsersReducerInitialStateType } from "./users-reducer";
+import { usersReducer, usersReducerActions, UsersReducerInitialStateType } from './users-reducer';
 
 let state: UsersReducerInitialStateType;
 
@@ -7,31 +7,31 @@ beforeEach(() => {
     users: [
       {
         id: 0,
-        name: "Dimych 0",
+        name: 'Dimych 0',
         followed: false,
         photos: { small: null, large: null },
-        status: "status 0",
+        status: 'status 0',
       },
       {
         id: 1,
-        name: "Dimych 1",
+        name: 'Dimych 1',
         followed: false,
         photos: { small: null, large: null },
-        status: "status 1",
+        status: 'status 1',
       },
       {
         id: 2,
-        name: "Dimych 2",
+        name: 'Dimych 2',
         followed: true,
         photos: { small: null, large: null },
-        status: "status 2",
+        status: 'status 2',
       },
       {
         id: 3,
-        name: "Dimych 3",
+        name: 'Dimych 3',
         followed: true,
         photos: { small: null, large: null },
-        status: "status 3",
+        status: 'status 3',
       },
     ],
     pageSize: 10,
@@ -40,20 +40,20 @@ beforeEach(() => {
     isFetching: false,
     followingInProgress: [],
     filter: {
-      term: "",
+      term: '',
       friend: null as null | boolean,
     },
   };
 });
 
-test("follow success", () => {
+test('follow success', () => {
   const newState = usersReducer(state, usersReducerActions.followSuccess(1));
 
   expect(newState.users[0].followed).toBeFalsy();
   expect(newState.users[1].followed).toBeTruthy();
 });
 
-test("unfollow success", () => {
+test('unfollow success', () => {
   const newState = usersReducer(state, usersReducerActions.unfollowSuccess(3));
 
   expect(newState.users[2].followed).toBeTruthy();

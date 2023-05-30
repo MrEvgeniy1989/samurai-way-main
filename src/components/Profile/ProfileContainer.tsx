@@ -1,11 +1,11 @@
-import React, { ComponentType } from "react";
-import { Profile } from "./Profile";
-import { connect } from "react-redux";
-import { getStatus, getUserProfile, savePhoto, saveProfile, updateStatus } from "../../redux/profile-reducer";
-import { AppStateType } from "../../redux/redux-store";
-import { RouteComponentProps, withRouter } from "react-router-dom";
-import { compose } from "redux";
-import { ProfileType } from "../../types/types";
+import React, { ComponentType } from 'react';
+import { Profile } from './Profile';
+import { connect } from 'react-redux';
+import { getStatus, getUserProfile, savePhoto, saveProfile, updateStatus } from '../../redux/profile-reducer';
+import { AppStateType } from '../../redux/redux-store';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { compose } from 'redux';
+import { ProfileType } from '../../types/types';
 
 class ProfileContainer extends React.Component<PropsType, AppStateType> {
   refreshProfile() {
@@ -14,7 +14,7 @@ class ProfileContainer extends React.Component<PropsType, AppStateType> {
       // this.props.authorizedUserId !== null ? (userId = this.props.authorizedUserId) : this.props.history.push("login");
       userId = this.props.authorizedUserId;
       if (!userId) {
-        this.props.history.push("login");
+        this.props.history.push('login');
       }
     }
     if (!userId) {
@@ -58,7 +58,7 @@ let mapStateToProps = (state: AppStateType) => ({
 
 export default compose<ComponentType>(
   connect(mapStateToProps, { getUserProfile, getStatus, updateStatus, savePhoto, saveProfile }),
-  withRouter
+  withRouter,
 )(ProfileContainer);
 
 // Types

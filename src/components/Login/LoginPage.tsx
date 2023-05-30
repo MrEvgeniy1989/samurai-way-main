@@ -1,13 +1,13 @@
-import React, { FC } from "react";
-import styleFormControls from "../common/FormsControls/FormsControls.module.css";
-import { InjectedFormProps, reduxForm } from "redux-form";
-import { createField, MyInput } from "../common/FormsControls/FormsControls";
-import { required } from "../../utils/validators/validators";
-import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../redux/auth-reducer";
-import { Redirect } from "react-router-dom";
-import { AppStateType } from "../../redux/redux-store";
-import { GetStringKeys } from "../../types/types";
+import React, { FC } from 'react';
+import styleFormControls from '../common/FormsControls/FormsControls.module.css';
+import { InjectedFormProps, reduxForm } from 'redux-form';
+import { createField, MyInput } from '../common/FormsControls/FormsControls';
+import { required } from '../../utils/validators/validators';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../../redux/auth-reducer';
+import { Redirect } from 'react-router-dom';
+import { AppStateType } from '../../redux/redux-store';
+import { GetStringKeys } from '../../types/types';
 
 export const LoginForm: FC<InjectedFormProps<LoginFormValuesType, LoginFormPropsType> & LoginFormPropsType> = ({
   handleSubmit,
@@ -16,12 +16,12 @@ export const LoginForm: FC<InjectedFormProps<LoginFormValuesType, LoginFormProps
 }) => {
   return (
     <form onSubmit={handleSubmit}>
-      {createField<LoginFormValuesTypeKeys>("Email", "email", [required], MyInput)}
-      {createField<LoginFormValuesTypeKeys>("Password", "password", [required], MyInput, { type: "password" })}
-      {createField<LoginFormValuesTypeKeys>(undefined, "rememberMe", [], MyInput, { type: "checkbox" }, "Remember me")}
+      {createField<LoginFormValuesTypeKeys>('Email', 'email', [required], MyInput)}
+      {createField<LoginFormValuesTypeKeys>('Password', 'password', [required], MyInput, { type: 'password' })}
+      {createField<LoginFormValuesTypeKeys>(undefined, 'rememberMe', [], MyInput, { type: 'checkbox' }, 'Remember me')}
 
-      {captchaUrl && <img src={captchaUrl} alt={"captcha"} />}
-      {captchaUrl && createField<LoginFormValuesTypeKeys>("Symbols from image", "captcha", [required], MyInput, {})}
+      {captchaUrl && <img src={captchaUrl} alt={'captcha'} />}
+      {captchaUrl && createField<LoginFormValuesTypeKeys>('Symbols from image', 'captcha', [required], MyInput, {})}
 
       {error && <div className={styleFormControls.formSummaryError}>{error}</div>}
 
@@ -32,7 +32,7 @@ export const LoginForm: FC<InjectedFormProps<LoginFormValuesType, LoginFormProps
   );
 };
 
-const LoginReduxForm = reduxForm<LoginFormValuesType, LoginFormPropsType>({ form: "login" })(LoginForm);
+const LoginReduxForm = reduxForm<LoginFormValuesType, LoginFormPropsType>({ form: 'login' })(LoginForm);
 
 export const LoginPage: FC = () => {
   const captchaUrl = useSelector((state: AppStateType) => state.auth.captchaUrl);
@@ -44,7 +44,7 @@ export const LoginPage: FC = () => {
   };
 
   if (isAuth) {
-    return <Redirect to={"/profile"} />;
+    return <Redirect to={'/profile'} />;
   }
 
   return (

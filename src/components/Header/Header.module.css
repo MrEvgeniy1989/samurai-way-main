@@ -15,25 +15,22 @@
 /*  color: white;*/
 /*}*/
 
-
-
 .header {
-    display: flex;
+  display: flex;
 }
 
 .headerContainer {
-    display: flex;
-    justify-content: end;
-    align-items: center;
-    width: 80%;
-    margin: 0 auto;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
 }
 
 .loginBlock {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 }
 
-.logoutBlock{
-
+.logoutBlock {
 }

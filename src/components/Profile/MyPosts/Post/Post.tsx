@@ -1,14 +1,14 @@
-import React from "react";
-import s from "./Post.module.css";
-import { UserOutlined } from "@ant-design/icons";
-import { Avatar } from "antd";
+import React from 'react';
+import s from './Post.module.css';
+import { UserOutlined } from '@ant-design/icons';
+import { Avatar } from 'antd';
 
 type PostPropsType = {
   message: string;
   likesCount: number;
 };
 
-export const Post: React.FC<PostPropsType> = (props) => {
+export const Post: React.FC<PostPropsType> = props => {
   return (
     <div className={s.post}>
       {/*<img*/}

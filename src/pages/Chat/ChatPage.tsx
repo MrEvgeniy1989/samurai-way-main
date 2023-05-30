@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
-import { ChatMessageAPIType } from "../../api/chat-api";
-import { useDispatch, useSelector } from "react-redux";
-import { sendMessage, startMessagesListening, stopMessagesListening } from "../../redux/chat-reducer";
-import { AppStateType } from "../../redux/redux-store";
-import s from "./ChatPage.module.css";
-import { Button, Input } from "antd";
+import React, { useEffect, useRef, useState } from 'react';
+import { ChatMessageAPIType } from '../../api/chat-api';
+import { useDispatch, useSelector } from 'react-redux';
+import { sendMessage, startMessagesListening, stopMessagesListening } from '../../redux/chat-reducer';
+import { AppStateType } from '../../redux/redux-store';
+import s from './ChatPage.module.css';
+import { Button, Input } from 'antd';
 
 export const ChatPage: React.FC = () => {
   return (
@@ -28,7 +28,7 @@ const Chat: React.FC = () => {
 
   return (
     <div>
-      {status === "error" && <div>Some error occured. Please refresh the page</div>}
+      {status === 'error' && <div>Some error occured. Please refresh the page</div>}
       <>
         <div>
           <Messages />
@@ -58,13 +58,13 @@ const Messages: React.FC<{}> = ({}) => {
 
   useEffect(() => {
     if (isAutoScroll) {
-      messagesAnchorRef.current?.scrollIntoView({ behavior: "smooth" });
+      messagesAnchorRef.current?.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages]);
 
   return (
-    <div style={{ height: "600px", overflowY: "auto" }} onScroll={scrollHandler}>
-      {messages.map((m) => (
+    <div style={{ height: '600px', overflowY: 'auto' }} onScroll={scrollHandler}>
+      {messages.map(m => (
         <Message key={m.id} message={m} />
       ))}
       <div ref={messagesAnchorRef}></div>
@@ -76,7 +76,7 @@ const Message: React.FC<{ message: ChatMessageAPIType }> = React.memo(({ message
   return (
     <div className={s.message}>
       <div className={s.message__user}>
-        <img src={message.photo} alt={"avatar"} />
+        <img src={message.photo} alt={'avatar'} />
       </div>
       <div className={s.message__text}>
         <b>{message.userName}</b>
@@ -88,7 +88,7 @@ const Message: React.FC<{ message: ChatMessageAPIType }> = React.memo(({ message
 });
 
 const AddMessageForm: React.FC<{}> = () => {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const dispatch = useDispatch();
 
   const status = useSelector((state: AppStateType) => state.chat.status);
@@ -98,16 +98,16 @@ const AddMessageForm: React.FC<{}> = () => {
       return;
     }
     dispatch(sendMessage(message));
-    setMessage("");
+    setMessage('');
   };
 
   const { TextArea } = Input;
 
   return (
     <div className={s.message__form}>
-      <TextArea onChange={(e) => setMessage(e.currentTarget.value)} value={message}></TextArea>
+      <TextArea onChange={e => setMessage(e.currentTarget.value)} value={message}></TextArea>
 
-      <Button disabled={status !== "ready"} onClick={sendMessageHandler}>
+      <Button disabled={status !== 'ready'} onClick={sendMessageHandler}>
         Send
       </Button>
     </div>

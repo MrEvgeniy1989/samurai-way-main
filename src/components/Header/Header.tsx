@@ -1,11 +1,11 @@
-import React from "react";
-import s from "./Header.module.css";
-import { Link } from "react-router-dom";
-import { selectCurrentUserLogin, selectIsAuth } from "../../redux/auth-selectors";
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../redux/auth-reducer";
-import { Avatar, Button, Layout, Row } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import React from 'react';
+import s from './Header.module.css';
+import { Link } from 'react-router-dom';
+import { selectCurrentUserLogin, selectIsAuth } from '../../redux/auth-selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../redux/auth-reducer';
+import { Avatar, Button, Layout, Row } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 
 type PropsType = {};
 
@@ -34,13 +34,13 @@ export const Header: React.FC<PropsType> = () => {
         <Row>
           {isAuth ? (
             <div className={s.loginBlock}>
-              <Avatar alt={login || ""} style={{ backgroundColor: "#87d068" }} icon={<UserOutlined />} />
+              <Avatar alt={login || ''} style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
               <Button onClick={logoutCallback}>Log out</Button>
             </div>
           ) : (
             <div className={s.logoutBlock}>
               <Button>
-                <Link to={"/login"}>Login</Link>
+                <Link to={'/login'}>Login</Link>
               </Button>
             </div>
           )}

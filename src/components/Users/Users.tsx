@@ -1,10 +1,10 @@
-import React, { FC, useEffect } from "react";
-import { Paginator } from "../common/Paginator/Paginator";
-import { User } from "./User";
-import { UserType } from "../../types/types";
-import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { FilterType, follow, requestUsers, unfollow } from "../../redux/users-reducer";
+import React, { FC, useEffect } from 'react';
+import { Paginator } from '../common/Paginator/Paginator';
+import { User } from './User';
+import { UserType } from '../../types/types';
+import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { FilterType, follow, requestUsers, unfollow } from '../../redux/users-reducer';
 import {
   getCurrentPage,
   getFollowingInProgress,
@@ -12,9 +12,9 @@ import {
   getTotalUsersCount,
   getUsers,
   getUsersFilter,
-} from "../../redux/users-selectors";
-import { UsersSearchForm } from "./UsersSearchForm";
-import * as queryString from "querystring";
+} from '../../redux/users-selectors';
+import { UsersSearchForm } from './UsersSearchForm';
+import * as queryString from 'querystring';
 
 export const Users: FC<PropsType> = () => {
   const users = useSelector(getUsers);
@@ -37,13 +37,13 @@ export const Users: FC<PropsType> = () => {
     if (!!parsed.term) actualFilter = { ...actualFilter, term: parsed.term as string };
 
     switch (parsed.friend) {
-      case "null":
+      case 'null':
         actualFilter = { ...actualFilter, friend: null };
         break;
-      case "true":
+      case 'true':
         actualFilter = { ...actualFilter, friend: true };
         break;
-      case "false":
+      case 'false':
         actualFilter = { ...actualFilter, friend: false };
         break;
     }
@@ -59,7 +59,7 @@ export const Users: FC<PropsType> = () => {
     if (currentPage !== 1) query.page = String(currentPage);
 
     history.push({
-      pathname: "/developers",
+      pathname: '/developers',
       search: queryString.stringify(query),
     });
   }, [filter, currentPage]);

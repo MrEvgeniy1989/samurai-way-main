@@ -1,6 +1,6 @@
-import React, { FC, useState } from "react";
-import styles from "./Paginator.module.css";
-import cn from "classnames";
+import React, { FC, useState } from 'react';
+import styles from './Paginator.module.css';
+import cn from 'classnames';
 
 type PropsType = {
   totalItemsCount: number;
@@ -14,7 +14,7 @@ export const Paginator: FC<PropsType> = ({
   totalItemsCount,
   pageSize,
   currentPage = 1,
-  onPageChanged = (x) => x,
+  onPageChanged = x => x,
   portionSize = 10,
 }) => {
   let pagesCount = Math.ceil(totalItemsCount / pageSize);
@@ -53,8 +53,8 @@ export const Paginator: FC<PropsType> = ({
       )}
 
       {pages
-        .filter((p) => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
-        .map((p) => {
+        .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
+        .map(p => {
           return (
             <span
               className={cn({ [styles.selectedPage]: currentPage === p }, styles.pageNumber)}
